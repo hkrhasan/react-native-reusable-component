@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import colors from '../../style/colors';
-import ButtonStyle, {btnSize} from './Button.style';
+import ButtonStyle, {btnSize} from '../../utils/componentObjects/Button/style';
 
 const ButtonComp = props => {
   const {
@@ -18,8 +18,7 @@ const ButtonComp = props => {
     btnStyle,
     startIcon,
     endIcon,
-    fullWidth,
-    onClick,
+    onPress,
     containerStyle,
     textStyle,
     loader,
@@ -42,20 +41,11 @@ const ButtonComp = props => {
     flexDirection: 'row',
   };
 
-  const clickHandler = () => {
-    if (variantKey === 'disabled') {
-      return;
-    }
-    if (onClick) {
-      onClick();
-    }
-  };
-
   switch (type) {
     case 'loading':
       return (
         <TouchableOpacity
-          onPress={clickHandler}
+          onPress={onPress}
           style={{
             ...defaultStyle.container,
             ...{
@@ -88,7 +78,7 @@ const ButtonComp = props => {
     default:
       return (
         <TouchableOpacity
-          onPress={clickHandler}
+          onPress={onPress}
           style={{
             ...defaultStyle.container,
             ...{

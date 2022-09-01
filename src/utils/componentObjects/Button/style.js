@@ -1,4 +1,4 @@
-import colors from '../../style/colors';
+import colors from '../../../style/colors';
 
 export const btnSize = {
   small: {
