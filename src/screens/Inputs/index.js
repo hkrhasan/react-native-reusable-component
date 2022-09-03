@@ -46,6 +46,12 @@ const InputScreen = ({navigation}) => {
           setValue={setValue}
           endIcon={style => <Feather name="send" style={style} />}
         />
+        <InputComp
+          erorr="somethind went wrong!"
+          value={value}
+          setValue={setValue}
+          endIcon={style => <Feather name="send" style={style} />}
+        />
         <Text style={styles.heading}>Password Input</Text>
         <InputPassComp
           value={value}

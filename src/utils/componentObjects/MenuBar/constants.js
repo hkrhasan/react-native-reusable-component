@@ -30,8 +30,16 @@ export const menuBars = [
     route: 'RadioCheckBoxes',
   },
   {
+    label: 'DatePickers',
+    route: 'DatePickers',
+  },
+  {
     label: 'Inputs',
     route: 'Inputs',
+  },
+  {
+    label: 'Modal',
+    route: 'Modal',
   },
   {
     label: 'StartIcon',

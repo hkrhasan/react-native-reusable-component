@@ -13,6 +13,9 @@ import AutoCompleteScreen from './AutoComplete';
 import DropDownsScreen from './DropDown';
 import RadioCheckBox from './RadioCheckBox';
 import TabBarScreen from './TabBar';
+import DatePickerScreen from './DatePicker';
+import ModalScreen from './Modal';
+import ActionSheetScreen from './ActionSheet';
 
 export {
   ButtonScreen,
@@ -28,4 +31,7 @@ export {
   DropDownsScreen,
   RadioCheckBox,
   TabBarScreen,
+  DatePickerScreen,
+  ModalScreen,
+  ActionSheetScreen,
 };

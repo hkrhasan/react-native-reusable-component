@@ -11,6 +11,8 @@ import RadioButtonsComp from './RadioButtons';
 import CheckBoxesComp from './CheckBoxes';
 import AutoCompleteSingle from './AutocompleteSingle';
 import AutoCompleteMulti from './AutoCompleteMulti';
+import DatePickerComp from './DatePicker';
+import ModalComp from './Modal';
 
 export {
   ButtonComp,
@@ -27,4 +29,6 @@ export {
   CheckBoxesComp,
   AutoCompleteSingle,
   AutoCompleteMulti,
+  DatePickerComp,
+  ModalComp,
 };

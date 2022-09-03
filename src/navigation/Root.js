@@ -15,6 +15,9 @@ import {
   DropDownsScreen,
   RadioCheckBox,
   TabBarScreen,
+  DatePickerScreen,
+  ModalScreen,
+  ActionSheetScreen,
 } from '../screens';
 
 const Drawer = createDrawerNavigator();
@@ -43,10 +46,13 @@ const RootNavigator = props => {
         <Drawer.Screen name="Dropdown" component={DropDownsScreen} />
         <Drawer.Screen name="AutoComplete" component={AutoCompleteScreen} />
         <Drawer.Screen name="RadioCheckBoxes" component={RadioCheckBox} />
-        <Drawer.Screen name="StartIcon" component={StartIconScreen} />
+        <Drawer.Screen name="DatePickers" component={DatePickerScreen} />
+        <Drawer.Screen name="Modal" component={ModalScreen} />
+        <Drawer.Screen name="ActionSheet" component={ActionSheetScreen} />
+        {/* <Drawer.Screen name="StartIcon" component={StartIconScreen} />
         <Drawer.Screen name="EndIcon" component={EndIconScreen} />
         <Drawer.Screen name="SubMenuFirst" component={SubMenuFirstScreen} />
-        <Drawer.Screen name="SubMenuSecond" component={SubMenuSecondScreen} />
+        <Drawer.Screen name="SubMenuSecond" component={SubMenuSecondScreen} /> */}
         {/* 
         <Drawer.Screen name="Help">
           {() => <DummyScreen name={'Help'} />}
