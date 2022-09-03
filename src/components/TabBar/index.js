@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import React, {useState} from 'react';
 import colors from '../../style/colors';
@@ -5,20 +6,35 @@ import TabBody from './TabBody';
 import TabBarStyle from '../../utils/componentObjects/TabBar/style';
 
 const TabButton = props => {
-  const {item, isActive, onPress, iconPosition} = props;
+  const {
+    item,
+    isActive,
+    onPress,
+    iconPosition,
+    styleTabBtnWrapper,
+    styleActiveIcon,
+    styleInActiveIcon,
+    styleTitle,
+  } = props;
 
-  const flexDirection = iconPosition
-    ? iconPosition === 'bottom'
-      ? 'column-reverse'
-      : iconPosition === 'left'
-      ? 'row'
-      : 'row-reverse'
-    : 'column';
+  let flexDirection = 'column';
+
+  if (iconPosition === 'bottom') {
+    flexDirection = 'column-reverse';
+  }
+
+  if (iconPosition === 'left') {
+    flexDirection = 'row';
+  }
+
+  if (iconPosition === 'right') {
+    flexDirection = 'row-reverse';
+  }
 
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={{...TabBarStyle.tabButton.wrapper}}>
+      style={{...TabBarStyle.tabButton.wrapper, styleTabBtnWrapper}}>
       <View
         style={{
           ...TabBarStyle.tabButton.rowOrColumn,
@@ -28,10 +44,12 @@ const TabButton = props => {
           ? item.activeIcon({
               ...TabBarStyle.tabButton.icon.common,
               ...TabBarStyle.tabButton.icon.active,
+              ...styleActiveIcon,
             })
           : item.inActiveIcon({
               ...TabBarStyle.tabButton.icon.common,
               ...TabBarStyle.tabButton.icon.inActive,
+              ...styleInActiveIcon,
             })}
         <Text
           style={{
@@ -41,6 +59,7 @@ const TabButton = props => {
               : TabBarStyle.tabButton.text.inActive.color,
             marginRight: flexDirection === 'row-reverse' ? 7 : 0,
             marginLeft: flexDirection === 'row' ? 7 : 0,
+            ...styleTitle,
           }}>
           {item.label}
         </Text>
@@ -49,16 +68,27 @@ const TabButton = props => {
   );
 };
 
-const TabBarComp = ({TabArr, iconPosition, ...props}) => {
+const TabBarComp = props => {
+  const {
+    TabArr,
+    iconPosition,
+    styleTabContainer,
+    styleTabrow,
+    styleTabBtnWrapper,
+    styleActiveIcon,
+    styleInActiveIcon,
+    styleTitle,
+  } = props;
   const [active, setActive] = useState(TabArr.length ? TabArr[0] : undefined);
 
   const Component = active ? active.component : null;
 
   return (
-    <View style={{...TabBarStyle.wrapper}}>
+    <View style={{...TabBarStyle.wrapper, ...styleTabContainer}}>
       <View
         style={{
           ...TabBarStyle.row,
+          ...styleTabrow,
         }}>
         {TabArr?.map((item, index) => (
           <TabButton
@@ -66,7 +96,11 @@ const TabBarComp = ({TabArr, iconPosition, ...props}) => {
             item={item}
             isActive={active !== undefined && item.route === active.route}
             onPress={() => setActive(item)}
+            styleTabBtnWrapper={styleTabBtnWrapper}
             iconPosition={iconPosition}
+            styleActiveIcon={styleActiveIcon}
+            styleInActiveIcon={styleInActiveIcon}
+            styleTitle={styleTitle}
           />
         ))}
       </View>

@@ -10,6 +10,11 @@ import {
   EndIconScreen,
   SubMenuFirstScreen,
   SubMenuSecondScreen,
+  InputScreen,
+  AutoCompleteScreen,
+  DropDownsScreen,
+  RadioCheckBox,
+  TabBarScreen,
 } from '../screens';
 
 const Drawer = createDrawerNavigator();
@@ -33,6 +38,11 @@ const RootNavigator = props => {
         <Drawer.Screen name="Home" component={HomeNavigator} />
 
         <Drawer.Screen name="Buttons" component={ButtonScreen} />
+        <Drawer.Screen name="TabBar" component={TabBarScreen} />
+        <Drawer.Screen name="Inputs" component={InputScreen} />
+        <Drawer.Screen name="Dropdown" component={DropDownsScreen} />
+        <Drawer.Screen name="AutoComplete" component={AutoCompleteScreen} />
+        <Drawer.Screen name="RadioCheckBoxes" component={RadioCheckBox} />
         <Drawer.Screen name="StartIcon" component={StartIconScreen} />
         <Drawer.Screen name="EndIcon" component={EndIconScreen} />
         <Drawer.Screen name="SubMenuFirst" component={SubMenuFirstScreen} />

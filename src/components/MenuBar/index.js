@@ -10,7 +10,7 @@ const MenuBar = props => {
     endIcon,
     endIconFullRight,
     parentProps,
-    url,
+    route,
     childs,
     activeRoute,
     styleContainer,
@@ -26,15 +26,15 @@ const MenuBar = props => {
       parentProps.navigation.getState().index
     ];
 
-  const isActive = activeRoute === url;
+  const isActive = activeRoute === route;
   const color = isActive ? MenuBarStyle.activeText : MenuBarStyle.inActiveText;
 
   const onPress = () => {
-    if (!url) {
+    if (!route) {
       setShowChild(!showChild);
       return;
     }
-    parentProps.navigation.navigate(url);
+    parentProps.navigation.navigate(route);
   };
 
   return (

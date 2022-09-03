@@ -3,5 +3,24 @@ import HeaderComp from './Header';
 import MenuBarComp from './MenuBar';
 import BottomNav from './BottomNav';
 import TabBarComp, {TabBody} from './TabBar';
+import InputComp from './Input';
+import InputPassComp from './InputPassword';
+import DropDownSingleSelect from './DropDownSingleSelect';
+import DropDownMultiSelect from './DropDownMultiSelect';
+import RadioButtonsComp from './RadioButtons';
+import CheckBoxesComp from './CheckBoxes';
 
-export {ButtonComp, HeaderComp, MenuBarComp, BottomNav, TabBarComp, TabBody};
+export {
+  ButtonComp,
+  HeaderComp,
+  MenuBarComp,
+  BottomNav,
+  TabBarComp,
+  TabBody,
+  InputComp,
+  InputPassComp,
+  DropDownSingleSelect,
+  DropDownMultiSelect,
+  RadioButtonsComp,
+  CheckBoxesComp,
+};

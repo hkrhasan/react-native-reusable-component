@@ -3,24 +3,38 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import React from 'react';
 import colors from '../../../style/colors';
+import {
+  HomeScreen,
+  EndIconScreen,
+  SubMenuFirstScreen,
+  SubMenuSecondScreen,
+  BottomTabExample1,
+  BottomTabExample2,
+  ButtonScreen,
+  StartIconScreen,
+} from '../../../screens';
 
 export const menuBars = [
   {
     label: 'Home',
-    url: 'Home',
+    route: 'Home',
   },
   {
     label: 'Buttons',
-    url: 'Buttons',
+    route: 'Buttons',
+  },
+  {
+    label: 'Inputs',
+    route: 'Inputs',
   },
   {
     label: 'StartIcon',
-    url: 'StartIcon',
+    route: 'StartIcon',
     startIcon: style => <AntDesign name={'user'} style={style} />,
   },
   {
     label: 'EndIcon',
-    url: 'EndIcon',
+    route: 'EndIcon',
     endIcon: style => <Feather name={'send'} style={style} />,
     // endIconFullRight: style => <Feather name={'send'} style={style} />,
   },
@@ -29,11 +43,11 @@ export const menuBars = [
     childs: [
       {
         label: 'SubMenuFirst',
-        url: 'SubMenuFirst',
+        route: 'SubMenuFirst',
       },
       {
         label: 'SubMenuSecond',
-        url: 'SubMenuSecond',
+        route: 'SubMenuSecond',
       },
     ],
   },
@@ -45,11 +59,11 @@ export const menuBars = [
         childs: [
           {
             label: 'SubMenuFirst',
-            url: 'SubMenuFirst',
+            route: 'SubMenuFirst',
           },
           {
             label: 'SubMenu2',
-            url: 'SubMenu2',
+            route: 'SubMenu2',
           },
         ],
       },

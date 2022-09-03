@@ -8,6 +8,11 @@ import SubMenuFirstScreen from './SubMenuFirst';
 import SubMenuSecondScreen from './SubMenuSecond';
 import BottomTabExample1 from './BottomTabExample1';
 import BottomTabExample2 from './BottomTabExample2';
+import InputScreen from './Inputs';
+import AutoCompleteScreen from './AutoComplete';
+import DropDownsScreen from './DropDown';
+import RadioCheckBox from './RadioCheckBox';
+import TabBarScreen from './TabBar';
 
 export {
   ButtonScreen,
@@ -18,4 +23,9 @@ export {
   SubMenuSecondScreen,
   BottomTabExample1,
   BottomTabExample2,
+  InputScreen,
+  AutoCompleteScreen,
+  DropDownsScreen,
+  RadioCheckBox,
+  TabBarScreen,
 };
