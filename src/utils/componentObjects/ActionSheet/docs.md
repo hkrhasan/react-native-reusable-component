@@ -1,3 +1,6 @@
+# Example 1
+
+```js
 import React, {useRef} from 'react';
 import {StyleSheet, View, Text, Button} from 'react-native';
 import {ActionSheetComp} from '../../components';
@@ -45,3 +48,15 @@ const styles = StyleSheet.create({
 });
 
 export default ActionSheetScreen;
+```
+
+## Props
+
+| Name               | Description          | Default | Example                                                                                                                  |
+| :----------------- | :------------------- | :------ | :----------------------------------------------------------------------------------------------------------------------- |
+| sheetRef*          | `ref`                | -       | `<ActionSheetComp sheetRef={sheetRef}>`                                                                                  |
+| snapPoints*        | `['25%', '50%',...]` | -       | `<ActionSheetComp sheetRef={sheetRef} snapPoints={snapPoints}>`                                                          |
+| handleSheetChange* | `() => void`         | -       | `<ActionSheetComp sheetRef={sheetRef} snapPoints={snapPoints} handleSheetChange={handleSheetChange}>`                    |
+| styleSheet         | `object`             | -       | `<ActionSheetComp sheetRef={sheetRef} snapPoints={snapPoints} handleSheetChange={handleSheetChange} styleSheet={{...}}>` |
+|                    |
+

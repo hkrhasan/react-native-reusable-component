@@ -13,6 +13,7 @@ import AutoCompleteSingle from './AutocompleteSingle';
 import AutoCompleteMulti from './AutoCompleteMulti';
 import DatePickerComp from './DatePicker';
 import ModalComp from './Modal';
+import ActionSheetComp from './ActionSheet';
 
 export {
   ButtonComp,
@@ -31,4 +32,5 @@ export {
   AutoCompleteMulti,
   DatePickerComp,
   ModalComp,
+  ActionSheetComp,
 };

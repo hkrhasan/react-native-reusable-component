@@ -42,6 +42,10 @@ export const menuBars = [
     route: 'Modal',
   },
   {
+    label: 'ActionSheet',
+    route: 'ActionSheet',
+  },
+  {
     label: 'StartIcon',
     route: 'StartIcon',
     startIcon: style => <AntDesign name={'user'} style={style} />,

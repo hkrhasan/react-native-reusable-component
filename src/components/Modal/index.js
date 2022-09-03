@@ -8,7 +8,7 @@ import ModalStyle from '../../utils/componentObjects/Modal/style';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-export const Modal = ({
+export const ModalComp = ({
   isVisible = false,
   styleModalContainer,
   height,
@@ -40,4 +40,4 @@ export const Modal = ({
   );
 };
 
-export default Modal;
+export default ModalComp;
