@@ -1,27 +1,25 @@
-# Buttons Props
-
-| Name           | Description                                                             | Default                 | Example                                                                          |
-| :------------- | :---------------------------------------------------------------------- | :---------------------- | :------------------------------------------------------------------------------- |
-| label*         | `"string"`                                                              | -                       | `<ButtonComp label="button">`                                                    |
-| type           | `"simple"` \| `"loading"`                                               | `"simple"`              | `<ButtonComp type="simple" label="button">`                                      |
-| size           | `"small"` \| `"medium"` \| `"large"`                                    | `"medium"`              | `<ButtonComp size="medium" label="button">`                                      |
-| btnStyle       | `"primary"` \| `"secondary"` \| `"success"` \| `"warning"` \| `"error"` | `"primary"`             | `<ButtonComp btnStyle="primary" label="button">`                                 |
-| variant        | `"text"` \| `"contained"` \| `"outlined"`                               | `"contained"`           | `<ButtonComp variant="outlined" label="button">`                                 |
-| startIcon      | `node`                                                                  | -                       | `<ButtonComp label="button" startIcon={(style) => <Component style={style} />}>` |
-| endIcon        | `node`                                                                  | -                       | `<ButtonComp label="button" endIcon={(style) => <Component style={style} />}>`   |
-| loader         | `node`                                                                  | `<ActivityIndicator />` | `<ButtonComp label="button" loader={(style) => <Component style={style} />}>`    |
-| onPress        | `func`                                                                  | -                       | `<ButtonComp label="button" onPress={onPress}>`                                  |
-| containerStyle | `object`                                                                | -                       | `<ButtonComp label="button" containerStyle={{backgroundColor: '#fff'}}>`         |
-| textStyle      | `object`                                                                | -                       | `<ButtonComp label="button" containerStyle={{color: '#000'}}>`                   |
 
 
+## Example1
 
-
-## Component helper functions
-
-### onPress
 ```js
-function onPress () {
-  // body
+import React, {useState} from 'react';
+import {HeaderComp} from '@/component';
+
+function App(){
+  
+  return <HeaderComp title="Home" />
 }
+export default App
 ```
+
+## Tabs Props
+
+| Name         | Description | Default | Example                                                                                           |
+| :----------- | :---------- | :------ | :------------------------------------------------------------------------------------------------ |
+| title*       | `string`    | -       | `<HeaderComp title="Home" />`                                                                     |
+| userImage    | `string`    | -       | `<HeaderComp title="Home" userImage="https://reactjs.org/logo-og.png" />`                         |
+| barIcon      | `node`      | -       | `<HeaderComp title="Home" barIcon={(style) => <BarIcon style={style} />}  />`                     |
+| styleBarIcon | `object`    | -       | `<HeaderComp title="Home" barIcon={(style) => <BarIcon style={style} />} styleBarIcon={{...}} />` |
+| styleTitle   | `object`    | -       | `<HeaderComp title="Home" styleTitle={{...}} />`                                                  |
+| styleImage   | `object`    | -       | `<HeaderComp title="Home" userImage="https://reactjs.org/logo-og.png" styleImage={{...}} />`      |

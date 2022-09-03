@@ -2,17 +2,17 @@
 
 ```js
 import React, {useState} from 'react';
-import {DropDownSingleSelect} from '@/component';
+import {DropDownMultiSelect} from '@/component';
 
 function App(){
-const [value, setValue] = useState(null);
+  const [value, setValue] = useState([]);
   const [items, setItems] = useState([
     {label: 'Option1', value: 'option1'},
     {label: 'Option2', value: 'option2'},
     {label: 'Option3', value: 'option3'},
   ]);
 
-  return <DropDownSingleSelect
+  return <DropDownMultiSelect
           value={value}
           setValue={setValue}
           items={items}

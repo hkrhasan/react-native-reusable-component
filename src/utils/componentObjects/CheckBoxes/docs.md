@@ -1,10 +1,8 @@
-styleWrapper, list, setList, colo
-
 ## Notes
 
 > `checked` is required in checkbox state
 
-## render component
+## Example1
 
 ```js
 import React, {useState} from 'react';

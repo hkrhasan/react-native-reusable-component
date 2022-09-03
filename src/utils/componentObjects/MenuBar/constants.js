@@ -3,16 +3,6 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import React from 'react';
 import colors from '../../../style/colors';
-import {
-  HomeScreen,
-  EndIconScreen,
-  SubMenuFirstScreen,
-  SubMenuSecondScreen,
-  BottomTabExample1,
-  BottomTabExample2,
-  ButtonScreen,
-  StartIconScreen,
-} from '../../../screens';
 
 export const menuBars = [
   {
@@ -22,6 +12,22 @@ export const menuBars = [
   {
     label: 'Buttons',
     route: 'Buttons',
+  },
+  {
+    label: 'TabBar',
+    route: 'TabBar',
+  },
+  {
+    label: 'Dropdown',
+    route: 'Dropdown',
+  },
+  {
+    label: 'AutoComplete',
+    route: 'AutoComplete',
+  },
+  {
+    label: 'RadioCheckBoxes',
+    route: 'RadioCheckBoxes',
   },
   {
     label: 'Inputs',

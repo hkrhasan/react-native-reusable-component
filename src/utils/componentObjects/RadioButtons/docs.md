@@ -1,27 +1,45 @@
-# Buttons Props
+## Notes
 
-| Name           | Description                                                             | Default                 | Example                                                                          |
-| :------------- | :---------------------------------------------------------------------- | :---------------------- | :------------------------------------------------------------------------------- |
-| label*         | `"string"`                                                              | -                       | `<ButtonComp label="button">`                                                    |
-| type           | `"simple"` \| `"loading"`                                               | `"simple"`              | `<ButtonComp type="simple" label="button">`                                      |
-| size           | `"small"` \| `"medium"` \| `"large"`                                    | `"medium"`              | `<ButtonComp size="medium" label="button">`                                      |
-| btnStyle       | `"primary"` \| `"secondary"` \| `"success"` \| `"warning"` \| `"error"` | `"primary"`             | `<ButtonComp btnStyle="primary" label="button">`                                 |
-| variant        | `"text"` \| `"contained"` \| `"outlined"`                               | `"contained"`           | `<ButtonComp variant="outlined" label="button">`                                 |
-| startIcon      | `node`                                                                  | -                       | `<ButtonComp label="button" startIcon={(style) => <Component style={style} />}>` |
-| endIcon        | `node`                                                                  | -                       | `<ButtonComp label="button" endIcon={(style) => <Component style={style} />}>`   |
-| loader         | `node`                                                                  | `<ActivityIndicator />` | `<ButtonComp label="button" loader={(style) => <Component style={style} />}>`    |
-| onPress        | `func`                                                                  | -                       | `<ButtonComp label="button" onPress={onPress}>`                                  |
-| containerStyle | `object`                                                                | -                       | `<ButtonComp label="button" containerStyle={{backgroundColor: '#fff'}}>`         |
-| textStyle      | `object`                                                                | -                       | `<ButtonComp label="button" containerStyle={{color: '#000'}}>`                   |
+> `id` and `selected`, `label` is required in button state
 
+## Example1
 
-
-
-## Component helper functions
-
-### onPress
 ```js
-function onPress () {
-  // body
+import React, {useState} from 'react';
+import {RadioButtonsComp} from '@/component';
+
+function App(){
+  const [list, setList] = useState([
+  {id: 1, label: 'option1', selected: false},
+  {id: 2, label: 'option2', selected: false},
+  {id: 3, label: 'option2', selected: false},
+  {id: 4, label: 'option2', selected: false},
+])
+
+  return <RadioButtonsComp list={list} setList={setList} />
 }
+export default App
 ```
+
+
+ styleBtnWrapper,
+    onPress,
+    selected,
+    styleBtnOuter,
+    styleBtnInner,
+    styleBtnTitle,
+    btnPosition,
+    label,
+    showLabel,
+
+## Tabs Props
+
+| Name            | Description                                | Default | Example                                                                    |
+| :-------------- | :----------------------------------------- | :------ | :------------------------------------------------------------------------- |
+| list*           | `[{title: string, checked: boolean}, ...]` | -       | `<RadioButtonsComp list={list}>`                                           |
+| setList*        | `() => void`                               | -       | `<RadioButtonsComp list={list} setList={setList}>`                         |
+| styleBtnWrapper | `object`                                   | -       | `<RadioButtonsComp list={list} setList={setList} styleBtnWrapper={{...}}>` |
+| styleBtnOuter   | `object`                                   | -       | `<RadioButtonsComp list={list} setList={setList} styleBtnOuter={{...}}>`   |
+| styleBtnInner   | `object`                                   | -       | `<RadioButtonsComp list={list} setList={setList} styleBtnInner={{...}}>`   |
+| styleBtnTitle   | `object`                                   | -       | `<RadioButtonsComp list={list} setList={setList} styleBtnTitle={{...}}>`   |
+| showLabel       | `boolean`                                  | `true`  | `<RadioButtonsComp list={list} setList={setList} showLabel={false}>`       |

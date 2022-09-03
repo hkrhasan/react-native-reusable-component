@@ -54,7 +54,6 @@ const DropDownsScreen = ({navigation}) => {
           setItems={setItems}
           min={0}
           max={5}
-          itemKey={'value'}
           mode="BADGE"
           zIndex={9}
         />

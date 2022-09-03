@@ -9,6 +9,8 @@ import DropDownSingleSelect from './DropDownSingleSelect';
 import DropDownMultiSelect from './DropDownMultiSelect';
 import RadioButtonsComp from './RadioButtons';
 import CheckBoxesComp from './CheckBoxes';
+import AutoCompleteSingle from './AutocompleteSingle';
+import AutoCompleteMulti from './AutoCompleteMulti';
 
 export {
   ButtonComp,
@@ -23,4 +25,6 @@ export {
   DropDownMultiSelect,
   RadioButtonsComp,
   CheckBoxesComp,
+  AutoCompleteSingle,
+  AutoCompleteMulti,
 };
