@@ -51,7 +51,7 @@ const CheckBoxComp = props => {
 };
 
 const CheckBoxesComp = props => {
-  const {styleWrapper, list, setList, color} = props;
+  const {styleWrapper, list, setList, color, boxPosition} = props;
 
   const [checked, setChecked] = useState(false);
 
@@ -74,7 +74,7 @@ const CheckBoxesComp = props => {
           checked={checkbox.checked}
           title={checkbox.title}
           onPress={() => onCheckBoxClick(index)}
-          boxPosition="left"
+          boxPosition={boxPosition}
           color={color}
         />
       ))}

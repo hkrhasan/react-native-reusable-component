@@ -14,10 +14,24 @@ const TabButton = props => {
     tabBtnContainerStyle,
     activeIconStyle,
     inActiveIconStyle,
-    direction = 'column',
+    iconPosition,
     tabBtnStyleLabel,
   } = props;
   const focused = accessibilityState.selected;
+
+  let flexDirection = 'column';
+
+  if (iconPosition === 'bottom') {
+    flexDirection = 'column-reverse';
+  }
+
+  if (iconPosition === 'left') {
+    flexDirection = 'row';
+  }
+
+  if (iconPosition === 'right') {
+    flexDirection = 'row-reverse';
+  }
 
   return (
     <TouchableOpacity
@@ -30,7 +44,7 @@ const TabButton = props => {
         style={{
           ...BottomNavStyle.tabButton.container,
           ...tabBtnContainerStyle,
-          flexDirection: direction,
+          flexDirection,
         }}>
         {focused
           ? item.activeIcon({
@@ -51,7 +65,8 @@ const TabButton = props => {
               color: focused
                 ? BottomNavStyle.tabButton.label.active.color
                 : BottomNavStyle.tabButton.label.inActive.color,
-              marginLeft: direction === 'row' ? 5 : 0,
+              marginRight: flexDirection === 'row-reverse' ? 7 : 0,
+              marginLeft: flexDirection === 'row' ? 7 : 0,
               ...tabBtnStyleLabel,
             }}>
             {item.label}
@@ -71,7 +86,7 @@ const BottomNav = props => {
     tabBtnContainerStyle,
     activeIconStyle,
     inActiveIconStyle,
-    tabBtnDirection,
+    iconPosition,
     tabBtnStyleLabel,
   } = props;
 
@@ -100,7 +115,7 @@ const BottomNav = props => {
                   tabBtnContainerStyle={tabBtnContainerStyle}
                   activeIconStyle={activeIconStyle}
                   inActiveIconStyle={inActiveIconStyle}
-                  direction={tabBtnDirection}
+                  iconPosition={iconPosition}
                   tabBtnStyleLabel={tabBtnStyleLabel}
                 />
               ),

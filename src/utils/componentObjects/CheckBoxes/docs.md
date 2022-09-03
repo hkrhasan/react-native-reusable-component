@@ -1,27 +1,42 @@
-# Buttons Props
+styleWrapper, list, setList, colo
 
-| Name           | Description                                                             | Default                 | Example                                                                          |
-| :------------- | :---------------------------------------------------------------------- | :---------------------- | :------------------------------------------------------------------------------- |
-| label*         | `"string"`                                                              | -                       | `<ButtonComp label="button">`                                                    |
-| type           | `"simple"` \| `"loading"`                                               | `"simple"`              | `<ButtonComp type="simple" label="button">`                                      |
-| size           | `"small"` \| `"medium"` \| `"large"`                                    | `"medium"`              | `<ButtonComp size="medium" label="button">`                                      |
-| btnStyle       | `"primary"` \| `"secondary"` \| `"success"` \| `"warning"` \| `"error"` | `"primary"`             | `<ButtonComp btnStyle="primary" label="button">`                                 |
-| variant        | `"text"` \| `"contained"` \| `"outlined"`                               | `"contained"`           | `<ButtonComp variant="outlined" label="button">`                                 |
-| startIcon      | `node`                                                                  | -                       | `<ButtonComp label="button" startIcon={(style) => <Component style={style} />}>` |
-| endIcon        | `node`                                                                  | -                       | `<ButtonComp label="button" endIcon={(style) => <Component style={style} />}>`   |
-| loader         | `node`                                                                  | `<ActivityIndicator />` | `<ButtonComp label="button" loader={(style) => <Component style={style} />}>`    |
-| onPress        | `func`                                                                  | -                       | `<ButtonComp label="button" onPress={onPress}>`                                  |
-| containerStyle | `object`                                                                | -                       | `<ButtonComp label="button" containerStyle={{backgroundColor: '#fff'}}>`         |
-| textStyle      | `object`                                                                | -                       | `<ButtonComp label="button" containerStyle={{color: '#000'}}>`                   |
+## Notes
 
+> `checked` is required in checkbox state
 
+## render component
 
-
-## Component helper functions
-
-### onPress
 ```js
-function onPress () {
-  // body
+import React, {useState} from 'react';
+import {CheckBoxesComp} from '@/component';
+
+function App(){
+  const [list, setList] = useState([
+    {
+      title: 'option1',
+      checked: false,
+    },
+    {
+      title: 'option2',
+      checked: false,
+    }
+  ])
+
+  return <CheckBoxesComp list={list} setList={setList} />
 }
+export default App
 ```
+
+
+
+## Tabs Props
+
+| Name         | Description                                    | Default  | Example                                                               |
+| :----------- | :--------------------------------------------- | :------- | :-------------------------------------------------------------------- |
+| list*        | `[{title: string, checked: boolean}, ...]`     | -        | `<CheckBoxesComp list={list}>`                                        |
+| setList*     | `() => void`                                   | -        | `<CheckBoxesComp list={list} setList={setList}>`                      |
+| styleWrapper | `object`                                       | -        | `<CheckBoxesComp list={list} setList={setList} styleWrapper={{...}}>` |
+| color        | `string`                                       | -        | `<CheckBoxesComp list={list} setList={setList} color="#000">`         |
+| boxPosition  | `"top"` \| `"bottom"` \| `"left"` \| `"right"` | `"left"` | `<BottomNav TabArr={data} tabBtnContainerStyle={{...}}>`              |
+|              |
+
