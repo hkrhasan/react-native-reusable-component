@@ -8,7 +8,7 @@ const ActionSheetComp = props => {
       ref={sheetRef}
       snapPoints={snapPoints}
       onChange={handleSheetChange}
-      style={[styleSheet]}
+      style={styleSheet}
       enablePanDownToClose
       {...props}>
       {children}

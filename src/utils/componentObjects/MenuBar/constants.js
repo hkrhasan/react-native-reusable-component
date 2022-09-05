@@ -46,6 +46,10 @@ export const menuBars = [
     route: 'ActionSheet',
   },
   {
+    label: 'Form',
+    route: 'Form',
+  },
+  {
     label: 'StartIcon',
     route: 'StartIcon',
     startIcon: style => <AntDesign name={'user'} style={style} />,
@@ -56,35 +60,35 @@ export const menuBars = [
     endIcon: style => <Feather name={'send'} style={style} />,
     // endIconFullRight: style => <Feather name={'send'} style={style} />,
   },
-  {
-    label: 'DropDown',
-    childs: [
-      {
-        label: 'SubMenuFirst',
-        route: 'SubMenuFirst',
-      },
-      {
-        label: 'SubMenuSecond',
-        route: 'SubMenuSecond',
-      },
-    ],
-  },
-  {
-    label: 'Nested Drop',
-    childs: [
-      {
-        label: 'Dept 1',
-        childs: [
-          {
-            label: 'SubMenuFirst',
-            route: 'SubMenuFirst',
-          },
-          {
-            label: 'SubMenu2',
-            route: 'SubMenu2',
-          },
-        ],
-      },
-    ],
-  },
+  // {
+  //   label: 'DropDown',
+  //   childs: [
+  //     {
+  //       label: 'SubMenuFirst',
+  //       route: 'SubMenuFirst',
+  //     },
+  //     {
+  //       label: 'SubMenuSecond',
+  //       route: 'SubMenuSecond',
+  //     },
+  //   ],
+  // },
+  // {
+  //   label: 'Nested Drop',
+  //   childs: [
+  //     {
+  //       label: 'Dept 1',
+  //       childs: [
+  //         {
+  //           label: 'SubMenuFirst',
+  //           route: 'SubMenuFirst',
+  //         },
+  //         {
+  //           label: 'SubMenu2',
+  //           route: 'SubMenu2',
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
 ];

@@ -18,6 +18,7 @@ import {
   DatePickerScreen,
   ModalScreen,
   ActionSheetScreen,
+  FormScreen,
 } from '../screens';
 
 const Drawer = createDrawerNavigator();
@@ -37,6 +38,7 @@ const RootNavigator = props => {
         screenOptions={{
           headerShown: false,
         }}
+        initialRouteName="Form"
         drawerContent={props => <CustomDrawer {...props} />}>
         <Drawer.Screen name="Home" component={HomeNavigator} />
 
@@ -49,6 +51,7 @@ const RootNavigator = props => {
         <Drawer.Screen name="DatePickers" component={DatePickerScreen} />
         <Drawer.Screen name="Modal" component={ModalScreen} />
         <Drawer.Screen name="ActionSheet" component={ActionSheetScreen} />
+        <Drawer.Screen name="Form" component={FormScreen} />
         {/* <Drawer.Screen name="StartIcon" component={StartIconScreen} />
         <Drawer.Screen name="EndIcon" component={EndIconScreen} />
         <Drawer.Screen name="SubMenuFirst" component={SubMenuFirstScreen} />
