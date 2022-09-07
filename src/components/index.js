@@ -14,6 +14,7 @@ import AutoCompleteMulti from './AutoCompleteMulti';
 import DatePickerComp from './DatePicker';
 import ModalComp from './Modal';
 import ActionSheetComp from './ActionSheet';
+import ImageUploader from './ImageUploader';
 
 export {
   ButtonComp,
@@ -33,4 +34,5 @@ export {
   DatePickerComp,
   ModalComp,
   ActionSheetComp,
+  ImageUploader,
 };

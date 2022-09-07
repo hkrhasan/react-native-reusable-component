@@ -15,6 +15,10 @@ const InputComp = props => {
     error,
     placeholder,
     placeholderTextColor,
+    multiline,
+    numberOfLines,
+    textAlignVertical,
+    editable,
   } = props;
   const [isFocused, setIsFocused] = useState(false);
 
@@ -43,6 +47,10 @@ const InputComp = props => {
           }
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
+          multiline={multiline}
+          numberOfLines={numberOfLines}
+          textAlignVertical={textAlignVertical}
+          editable={editable}
           style={{...inputStyle.row.input, ...styleInput}}
         />
         {/* endIcon */}

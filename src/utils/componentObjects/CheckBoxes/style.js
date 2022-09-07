@@ -9,7 +9,7 @@ const CheckBoxesStyle = {
   btnWrapper: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal: 10,
+    // marginHorizontal: 10,
     flex: 1,
   },
   btnOuter: {

@@ -13,6 +13,7 @@ const RadioButton = props => {
     btnPosition,
     label,
     showLabel,
+    disableMargin,
   } = props;
 
   let flexDirection = 'row';
@@ -20,10 +21,22 @@ const RadioButton = props => {
   if (btnPosition === 'bottom') flexDirection = 'column-reverse';
   if (btnPosition === 'top') flexDirection = 'column';
   if (btnPosition === 'right') flexDirection = 'row-reverse';
-
+  const margins = disableMargin
+    ? {}
+    : {
+        marginRight: flexDirection === 'row' ? 15 : 0,
+        marginBottom: flexDirection === 'column' ? 10 : 0,
+      };
   return (
     <View
-      style={[RadioButtonsStyle.btnWrapper, styleBtnWrapper, {flexDirection}]}>
+      style={[
+        RadioButtonsStyle.btnWrapper,
+        styleBtnWrapper,
+        {
+          flexDirection,
+          ...margins,
+        },
+      ]}>
       <TouchableOpacity
         onPress={onPress}
         style={[RadioButtonsStyle.btnOuter, styleBtnOuter]}>
@@ -54,7 +67,15 @@ const RadioButton = props => {
 };
 
 const RadioButtonsComp = props => {
-  const {styleWrapper, buttons, setButtons, btnPosition, showLabel} = props;
+  const {
+    styleWrapper,
+    buttons,
+    setButtons,
+    btnPosition,
+    showLabel,
+    styleBtnWrapper,
+    disableMargin = false,
+  } = props;
 
   let showLbl = showLabel === undefined ? true : showLabel;
 
@@ -77,6 +98,8 @@ const RadioButtonsComp = props => {
           btnPosition={btnPosition}
           label={button.label}
           showLabel={showLbl}
+          styleBtnWrapper={styleBtnWrapper}
+          disableMargin={disableMargin}
         />
       ))}
     </View>
