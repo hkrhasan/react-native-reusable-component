@@ -20,10 +20,11 @@ const DatePickerComp = props => {
     placeholderTextColor,
     date,
     setDate,
+    dateFormat = 'dd-MM-yyyy',
   } = props;
   const currDate = date || new Date();
   const [isFocused, setIsFocused] = useState(false);
-  const [value, setValue] = useState(format(currDate, 'dd-MM-yyyy'));
+  const [value, setValue] = useState(format(currDate, dateFormat));
   const [open, setOpen] = useState(false);
   const focusedObj = isFocused ? DatePickerStyle.row.focused : {};
   const errorContainer = error ? DatePickerStyle.row.error.container : {};
@@ -75,8 +76,10 @@ const DatePickerComp = props => {
         date={date || currDate}
         onConfirm={date => {
           setOpen(false);
-          setValue(format(date, 'dd-MM-yyyy'));
-          if (setDate) setDate(date);
+          setValue(format(date, dateFormat));
+          if (setDate) {
+            setDate(date);
+          }
         }}
         onCancel={() => {
           setOpen(false);

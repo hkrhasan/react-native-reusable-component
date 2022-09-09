@@ -1,48 +1,68 @@
 import {TouchableOpacity, Image, View} from 'react-native';
-import React from 'react';
+import React, {useEffect, useCallback} from 'react';
 import ImageUploaderStyle from '../../utils/componentObjects/imageUploader/style';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 const ImageUploader = props => {
-  const {styleContainer, imagePath, setImagePath} = props;
+  const {
+    styleContainer,
+    imagePath,
+    setImagePath,
+    launchType,
+    onPress,
+    setLaunchType,
+  } = props;
 
   const selectFile = () => {
-    var options = {
-      title: 'Select Image',
-      customButtons: [
-        {
-          name: 'customOptionKey',
-          title: 'Choose file from Custom Option',
+    if (launchType) {
+      var options = {
+        title: 'Select Image',
+        customButtons: [
+          {
+            name: 'customOptionKey',
+            title: 'Choose file from Custom Option',
+          },
+        ],
+        storageOptions: {
+          skipBackup: true,
+          path: 'images',
         },
-      ],
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
+      };
 
-    launchImageLibrary(options, res => {
-      console.log('Response = ', res);
-      if (res.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (res.error) {
-        console.log('ImagePicker Error: ', res.error);
-      } else if (res.customButton) {
-        console.log('User tapped custom button: ', res.customButton);
-        // alert(res.customButton);
-      } else {
-        let source = res;
-        setImagePath(source);
-        // this.setState({
-        //   resourcePath: source,
-        // });
+      let imageFunction = launchImageLibrary;
+
+      if (launchType === 'camera') {
+        imageFunction = launchCamera;
       }
-    });
+
+      imageFunction(options, res => {
+        console.log('Response = ', res);
+        if (res.didCancel) {
+          console.log('User cancelled image picker');
+          setLaunchType && setLaunchType(null);
+        } else if (res.error) {
+          console.log('ImagePicker Error: ', res.error);
+          setLaunchType && setLaunchType(null);
+        } else if (res.customButton) {
+          console.log('User tapped custom button: ', res.customButton);
+          setLaunchType && setLaunchType(null);
+        } else {
+          let source = res;
+          setImagePath(source);
+          setLaunchType && setLaunchType(null);
+        }
+      });
+    }
   };
+
+  useEffect(() => {
+    selectFile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [launchType]);
 
   return (
     <TouchableOpacity
-      onPress={selectFile}
+      onPress={onPress}
       style={[ImageUploaderStyle.container, styleContainer]}>
       {imagePath?.data ? (
         <Image

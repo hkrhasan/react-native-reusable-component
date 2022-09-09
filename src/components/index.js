@@ -15,6 +15,8 @@ import DatePickerComp from './DatePicker';
 import ModalComp from './Modal';
 import ActionSheetComp from './ActionSheet';
 import ImageUploader from './ImageUploader';
+import PhoneInput from './PhoneInput';
+import PlusMinusButton from './PlusMinusButtonComp';
 
 export {
   ButtonComp,
@@ -35,4 +37,6 @@ export {
   ModalComp,
   ActionSheetComp,
   ImageUploader,
+  PhoneInput,
+  PlusMinusButton,
 };

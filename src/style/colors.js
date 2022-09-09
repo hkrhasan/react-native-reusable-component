@@ -6,7 +6,7 @@ const colors = {
   success: '#c1f880',
   warning: '#ffc93c',
   error: '#ff0000',
-  white: '#fff',
+  white: '#ffffff',
   black: '#000',
   disable: '#ececec',
 };
