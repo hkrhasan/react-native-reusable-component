@@ -17,6 +17,7 @@ import ActionSheetComp from './ActionSheet';
 import ImageUploader from './ImageUploader';
 import PhoneInput from './PhoneInput';
 import PlusMinusButton from './PlusMinusButtonComp';
+import SliderComp from './SliderComp';
 
 export {
   ButtonComp,
@@ -39,4 +40,5 @@ export {
   ImageUploader,
   PhoneInput,
   PlusMinusButton,
+  SliderComp,
 };

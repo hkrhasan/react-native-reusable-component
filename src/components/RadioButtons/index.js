@@ -18,9 +18,15 @@ const RadioButton = props => {
 
   let flexDirection = 'row';
 
-  if (btnPosition === 'bottom') flexDirection = 'column-reverse';
-  if (btnPosition === 'top') flexDirection = 'column';
-  if (btnPosition === 'right') flexDirection = 'row-reverse';
+  if (btnPosition === 'bottom') {
+    flexDirection = 'column-reverse';
+  }
+  if (btnPosition === 'top') {
+    flexDirection = 'column';
+  }
+  if (btnPosition === 'right') {
+    flexDirection = 'row-reverse';
+  }
   const margins = disableMargin
     ? {}
     : {
@@ -75,6 +81,9 @@ const RadioButtonsComp = props => {
     showLabel,
     styleBtnWrapper,
     disableMargin = false,
+    label,
+    styleLabel,
+    componentWrapper,
   } = props;
 
   let showLbl = showLabel === undefined ? true : showLabel;
@@ -89,19 +98,24 @@ const RadioButtonsComp = props => {
   };
 
   return (
-    <View style={[RadioButtonsStyle.wrapper, styleWrapper]}>
-      {buttons?.map(button => (
-        <RadioButton
-          onPress={() => onRadioBtnClick(button)}
-          selected={button.selected}
-          key={button.id}
-          btnPosition={btnPosition}
-          label={button.label}
-          showLabel={showLbl}
-          styleBtnWrapper={styleBtnWrapper}
-          disableMargin={disableMargin}
-        />
-      ))}
+    <View>
+      {label && (
+        <Text style={[RadioButtonsStyle.label, styleLabel]}>{label}</Text>
+      )}
+      <View style={[RadioButtonsStyle.wrapper, styleWrapper]}>
+        {buttons?.map(button => (
+          <RadioButton
+            onPress={() => onRadioBtnClick(button)}
+            selected={button.selected}
+            key={button.id}
+            btnPosition={btnPosition}
+            label={button.label}
+            showLabel={showLbl}
+            styleBtnWrapper={styleBtnWrapper}
+            disableMargin={disableMargin}
+          />
+        ))}
+      </View>
     </View>
   );
 };

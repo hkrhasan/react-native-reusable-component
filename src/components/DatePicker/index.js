@@ -21,9 +21,12 @@ const DatePickerComp = props => {
     date,
     setDate,
     dateFormat = 'dd-MM-yyyy',
+    label,
+    styleLabel,
   } = props;
   const currDate = date || new Date();
   const [isFocused, setIsFocused] = useState(false);
+  const [inputValue, setInputValue] = useState('');
   const [value, setValue] = useState(format(currDate, dateFormat));
   const [open, setOpen] = useState(false);
   const focusedObj = isFocused ? DatePickerStyle.row.focused : {};
@@ -32,6 +35,9 @@ const DatePickerComp = props => {
 
   return (
     <View style={{...DatePickerStyle.wrapper, ...styleWrapper}}>
+      {label && (
+        <Text style={[DatePickerStyle.row.label, styleLabel]}>{label}</Text>
+      )}
       <Pressable
         style={{
           ...DatePickerStyle.row.common,
@@ -43,7 +49,7 @@ const DatePickerComp = props => {
         {/* startIcon */}
         {startIcon && startIcon({...DatePickerStyle.row.icon, ...errorIcon})}
         <TextInput
-          value={value}
+          value={inputValue}
           placeholder={placeholder}
           placeholderTextColor={
             placeholderTextColor || error
@@ -77,6 +83,7 @@ const DatePickerComp = props => {
         onConfirm={date => {
           setOpen(false);
           setValue(format(date, dateFormat));
+          setInputValue(format(date, dateFormat));
           if (setDate) {
             setDate(date);
           }

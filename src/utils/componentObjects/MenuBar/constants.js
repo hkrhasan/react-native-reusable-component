@@ -50,6 +50,10 @@ export const menuBars = [
     route: 'Form',
   },
   {
+    label: 'Toast',
+    route: 'Toast',
+  },
+  {
     label: 'StartIcon',
     route: 'StartIcon',
     startIcon: style => <AntDesign name={'user'} style={style} />,

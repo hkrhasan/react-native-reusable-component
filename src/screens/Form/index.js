@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Dimensions,
   Pressable,
+  TextInput,
 } from 'react-native';
 import React, {Fragment, useState, useRef} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -24,21 +25,29 @@ import {
   ActionSheetComp,
   PhoneInput,
   PlusMinusButton,
+  SliderComp,
 } from '../../components';
 import OpenDrawer from '../../components/Header/OpenDrawer';
 import colors from '../../style/colors';
 import {imgUri} from '../../utils/componentObjects/MenuBar/constants';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {buttons} from '../../utils/componentObjects/RadioButtons/constant';
-
+import {defaultState} from './defaultState';
 const height = Dimensions.get('window').height;
 
 const FormScreen = ({navigation}) => {
+  const [allStates, setAllStates] = useState({...defaultState});
+
+  const onChange = (obj, field, value) => {
+    console.log(obj, field, value);
+    setAllStates({...allStates, [obj]: {...allStates[obj], [field]: value}});
+  };
+
   // =========================: Image Upload Conf :============================
   const [imagePath, setImagePath] = useState({});
   const imageSheetRef = useRef(null);
   const [launchType, setLaunchType] = useState(null);
-  const imageSnapPoints = ['20%'];
+  const [imageSnapPoints, setImageSnapPoints] = useState(['20%']);
   const onChangeImageSheet = index => {
     if (index === -1) {
       setActionSheetIsOpened(false);
@@ -53,6 +62,26 @@ const FormScreen = ({navigation}) => {
     imageSheetRef.current?.close();
   };
   // =========================: End Image Upload Conf :============================
+
+  // =========================: Start Age Conf :============================
+  const [age, setAge] = useState(undefined);
+  const [ageSnapPoints, setAgeSnapPoints] = useState(['60%']);
+  const ageSheetRef = useRef(null);
+  const onChangeAgeSheet = index => {
+    if (index === -1) {
+      setActionSheetIsOpened(false);
+    }
+  };
+
+  const openAgeSheet = index => {
+    setActionSheetIsOpened(false);
+    ageSheetRef.current?.snapToIndex(index);
+  };
+
+  const closeAgeSheet = () => {
+    ageSheetRef.current?.close();
+  };
+  // =========================: End Age Conf :============================
 
   // =========================: Name conf Start :============================
   const [name, setName] = useState({
@@ -115,6 +144,9 @@ const FormScreen = ({navigation}) => {
   // =========================: Date Picker conf start :============================
   const [date, setDate] = useState(new Date());
   // =========================: Date Picker conf end :============================
+  // =========================: Slider conf start :============================
+  const [sliderValue, setSliderValue] = useState({value: 0.2});
+  // =========================: Slider conf end :============================
 
   // =========================: CheckBox conf start :============================
   const [checklistStack, setChacklistStack] = useState([
@@ -126,9 +158,7 @@ const FormScreen = ({navigation}) => {
   const [actionSheetIsOpened, setActionSheetIsOpened] = useState(false);
   // =========================: End Other Conf :============================
 
-  const onPress = () => {
-    console.warn('Clicked');
-  };
+  console.log(multiValue);
 
   return (
     // eslint-disable-next-line react-native/no-inline-styles
@@ -155,8 +185,10 @@ const FormScreen = ({navigation}) => {
               justifyContent: 'center',
             }}>
             <ImageUploader
-              imagePath={imagePath}
-              setImagePath={setImagePath}
+              imagePath={allStates.imageUpload.imagePath}
+              setImagePath={source =>
+                onChange('imageUpload', 'imagePath', source)
+              }
               onPress={() => openImageSheet(0)}
               launchType={launchType}
               setLaunchType={setLaunchType}
@@ -167,87 +199,99 @@ const FormScreen = ({navigation}) => {
           {/* ============: name field start :=============== */}
 
           <View style={[styles.horizontalPadding, {marginTop: 10}]}>
-            {!name.edit ? (
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              {!allStates.name.edit ? (
                 <Text style={{fontSize: 16, fontWeight: '600'}}>
-                  @{name.value}
+                  {allStates.name.value}
                 </Text>
-                <Pressable
-                  onPress={() =>
-                    setName({...name, edit: !name.edit, value: ''})
-                  }>
+              ) : (
+                <TextInput
+                  value={allStates.name.value}
+                  style={styles.nameInput}
+                  onChangeText={value => onChange('name', 'value', value)}
+                />
+              )}
+              <Pressable
+                onPress={() => onChange('name', 'edit', !allStates.name.edit)}>
+                {!allStates.name.edit ? (
                   <AntDesign
                     name="edit"
                     style={{fontSize: 20, marginLeft: 7}}
                   />
-                </Pressable>
-              </View>
-            ) : (
-              <Fragment>
-                <Text style={styles.heading}>name</Text>
-                <InputComp
-                  value={name.value}
-                  setValue={text => setName({...name, value: text})}
-                  endIcon={style => (
-                    <Pressable
-                      onPress={() => {
-                        if (!name.value) {
-                          setName({...name, error: 'Name is required'});
-                        } else {
-                          setName({...name, edit: false});
-                        }
-                      }}>
-                      <Entypo name="check" style={style} />
-                    </Pressable>
-                  )}
-                  error={name.error}
-                />
-              </Fragment>
-            )}
+                ) : (
+                  <Entypo name="check" style={{fontSize: 20, marginLeft: 7}} />
+                )}
+              </Pressable>
+            </View>
           </View>
           {/* ============: name field end :=============== */}
 
           {/* ============: firstname field start :=============== */}
           <View style={styles.horizontalPadding}>
-            <Text style={styles.heading}>FirstName</Text>
             <InputComp
-              value={firstName.value}
-              setValue={text => setFirstName({...firstName, value: text})}
-              onSubmitEditing={() => {
-                console.warn('on submit');
-              }}
-              blurOnSubmit={false}
+              label={allStates.firstName.label}
+              value={allStates.firstName.value}
+              setValue={text => onChange('firstName', 'value', text)}
+              minLength={allStates.firstName.minLength}
+              maxLength={allStates.firstName.maxLength}
             />
           </View>
           {/* ============: firstname field end :=============== */}
 
+          {/* ============: Age field start :=============== */}
+          <View style={styles.horizontalPadding}>
+            {allStates.agePicker.label && (
+              <Text style={styles.heading}>{allStates.agePicker.label}</Text>
+            )}
+            <Pressable
+              onPress={() => openAgeSheet(0)}
+              style={{
+                borderWidth: 1,
+                borderColor: colors.primary,
+                borderRadius: 10,
+                backgroundColor: colors.white,
+                paddingVertical: 14,
+                paddingHorizontal: 10,
+              }}>
+              <Text>
+                {allStates.agePicker.age || allStates.agePicker.placeholder}
+              </Text>
+            </Pressable>
+          </View>
+          {/* ============: Age field end :=============== */}
+
           {/* ============: Phone field start :=============== */}
           <View style={styles.horizontalPadding}>
-            <Text style={styles.heading}>Phone</Text>
+            {/* <Text style={styles.heading}>Phone</Text> */}
             <PhoneInput
-              value={phone.value}
-              setValue={text => setPhone({...phone, value: text})}
-              ref={phoneRef}
+              label={allStates.phone.label}
+              value={allStates.phone.value}
+              setValue={text => onChange('phone', 'value', text)}
+              length={allStates.phone.length}
             />
           </View>
           {/* ============: Phone field end :=============== */}
 
           {/* ============: Country field start :=============== */}
           <View style={styles.horizontalPadding}>
-            <Text style={styles.heading}>Select country</Text>
             <DropDownSingleSelect
-              value={value}
-              setValue={setValue}
-              items={country}
-              setItems={setCountry}
+              label={allStates.country.label}
+              value={allStates.country.value}
+              setValue={country => {
+                onChange('country', 'value', country());
+              }}
+              items={allStates.country.data}
+              setItems={items => {
+                onChange('country', 'data', items);
+              }}
               searchable={true}
-              zIndex={actionSheetIsOpened ? 0 : 10}
+              zIndex={actionSheetIsOpened ? 0 : allStates.country.zIndex}
               style={{marginBottom: 10}}
             />
           </View>
@@ -255,12 +299,14 @@ const FormScreen = ({navigation}) => {
 
           {/* ============: States field start :=============== */}
           <View style={styles.horizontalPadding}>
-            <Text style={styles.heading}>Select states</Text>
             <DropDownMultiSelect
               value={multiValue}
+              label={allStates.state.label}
               setValue={setMultiValue}
-              items={states}
-              setItems={setStates}
+              items={allStates.state.data}
+              setItems={data => {
+                onChange('state', 'data', data);
+              }}
               min={0}
               max={5}
               itemKey={'value'}
@@ -272,37 +318,42 @@ const FormScreen = ({navigation}) => {
           {/* ============: States field start :=============== */}
           {/* ==========================: Radio Buttons start :======================== */}
           <View style={[styles.horizontalPadding, {marginTop: 7}]}>
-            <Text style={styles.heading}>Gender</Text>
             <RadioButtonsComp
+              label={allStates.radios.label}
               styleWrapper={{alignItems: 'flex-start'}}
               styleBtnWrapper={{flex: 0}}
-              buttons={radios}
-              setButtons={setRadios}
+              buttons={allStates.radios.data}
+              setButtons={btns => onChange('radios', 'data', btns)}
             />
           </View>
           {/* ==========================: Radio Buttons end :======================== */}
 
           {/* ==========================: PlusMinus Buttons start :======================== */}
           <View style={[styles.horizontalPadding, {marginTop: 7}]}>
-            <Text style={styles.heading}>Quantity</Text>
-            <PlusMinusButton quantity={quantity} setQuantity={setQuantity} />
+            <PlusMinusButton
+              label={allStates.quantity.label}
+              min={allStates.quantity.min}
+              max={allStates.quantity.max}
+              quantity={allStates.quantity.value}
+              setQuantity={q => onChange('quantity', 'value', q)}
+            />
           </View>
           {/* ==========================: PlusMinus Buttons end :======================== */}
 
           <View style={styles.horizontalPadding}>
-            {/* label attach with component */}
-            <Text style={styles.heading}>DOB</Text>
             <DatePickerComp
-              date={date}
-              setDate={setDate}
-              dateFormat="dd-MMM-yyyy"
+              label={allStates.date.label}
+              date={allStates.date.value}
+              setDate={d => onChange('date', 'value', d)}
+              dateFormat={allStates.date.dateFormat}
+              placeholder={allStates.date.placeholder}
             />
           </View>
           <View style={styles.horizontalPadding}>
-            <Text style={styles.heading}>About Us</Text>
             <InputComp
-              value={about}
-              setValue={setAbout}
+              label={allStates.about.label}
+              value={allStates.about.value}
+              setValue={v => onChange('about', 'value', v)}
               multiline={true}
               numberOfLines={5}
               textAlignVertical="top"
@@ -310,9 +361,21 @@ const FormScreen = ({navigation}) => {
             />
           </View>
           <View style={styles.horizontalPadding}>
+            <Text style={[styles.heading]}>Range Slider</Text>
+            <View>
+              <SliderComp
+                value={sliderValue.value}
+                setValue={setSliderValue}
+                animateTransitions={true}
+                thumbTintColor={colors.secondary}
+              />
+              <Text>value: {parseInt(sliderValue.value * 100)}</Text>
+            </View>
+          </View>
+          <View style={styles.horizontalPadding}>
             <CheckBoxesComp
-              list={checklistStack}
-              setList={setChacklistStack}
+              list={allStates.checks.data}
+              setList={d => onChange('checks', 'data', d)}
               styleWrapper={{alignItems: 'flex-start'}}
               btnWrapper={{flex: 0}}
             />
@@ -342,6 +405,7 @@ const FormScreen = ({navigation}) => {
           </View>
         </KeyboardAwareScrollView>
         {/* ==========================: ActionSheets Renders :======================== */}
+        {/* Image Sheet start */}
         <ActionSheetComp
           style={{flex: 1, justifyContent: 'center'}}
           index={-1}
@@ -369,7 +433,7 @@ const FormScreen = ({navigation}) => {
             />
             <ButtonComp
               size="gallery"
-              label="Submit"
+              label="Gallery"
               onPress={() => {
                 setLaunchType('gallery');
                 closeImageSheet();
@@ -379,6 +443,38 @@ const FormScreen = ({navigation}) => {
             {/* <ButtonComp label="Reset" containerStyle={{marginBottom: 10}} /> */}
           </View>
         </ActionSheetComp>
+        {/* Image Sheet end */}
+
+        {/* Age Sheet start */}
+        <ActionSheetComp
+          style={{flex: 1, justifyContent: 'center'}}
+          index={-1}
+          sheetRef={ageSheetRef}
+          snapPoints={ageSnapPoints}
+          handleSheetChange={onChangeAgeSheet}>
+          <View
+            style={[
+              styles.horizontalPadding,
+              {
+                marginTop: 10,
+              },
+            ]}>
+            {[20, 30, 40, 50, 60, 70].map(age => (
+              <ButtonComp
+                label={age}
+                variant="outlined"
+                size="small"
+                onPress={() => {
+                  setAge(age);
+                  closeAgeSheet();
+                }}
+                containerStyle={{marginBottom: 10}}
+              />
+            ))}
+            {/* <ButtonComp label="Reset" containerStyle={{marginBottom: 10}} /> */}
+          </View>
+        </ActionSheetComp>
+        {/* Age Sheet end */}
         {/* ==========================: ActionSheets Renders :======================== */}
       </ScrollView>
     </View>
@@ -388,12 +484,20 @@ const FormScreen = ({navigation}) => {
 export default FormScreen;
 
 const styles = StyleSheet.create({
-  heading: {fontSize: 16, fontWeight: '600', marginBottom: 10, marginTop: 10},
+  heading: {fontSize: 14, marginBottom: 10, color: colors.black},
   smallHead: {
     fontSize: 14,
     color: colors.black,
   },
   horizontalPadding: {
     paddingHorizontal: 12,
+    marginBottom: 7,
+  },
+  nameInput: {
+    fontSize: 14,
+    color: colors.primary,
+    borderBottomWidth: 2,
+    borderColor: colors.primary,
+    paddingVertical: 0,
   },
 });

@@ -2,6 +2,7 @@ import {TouchableOpacity, Image, View} from 'react-native';
 import React, {useEffect, useCallback} from 'react';
 import ImageUploaderStyle from '../../utils/componentObjects/imageUploader/style';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {imgUri} from '../../utils/componentObjects/MenuBar/constants';
 
 const ImageUploader = props => {
   const {
@@ -47,7 +48,8 @@ const ImageUploader = props => {
           console.log('User tapped custom button: ', res.customButton);
           setLaunchType && setLaunchType(null);
         } else {
-          let source = res;
+          let source = res.assets[0];
+          console.log('Source => ', source.uri);
           setImagePath(source);
           setLaunchType && setLaunchType(null);
         }
@@ -60,25 +62,23 @@ const ImageUploader = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [launchType]);
 
+  console.log({imagePath});
   return (
     <TouchableOpacity
       onPress={onPress}
       style={[ImageUploaderStyle.container, styleContainer]}>
-      {imagePath?.data ? (
-        <Image
-          source={{
-            uri: 'data:image/jpeg;base64,' + imagePath.data,
-          }}
-          style={[
-            {
-              height: ImageUploaderStyle.container.height,
-              width: ImageUploaderStyle.container.width,
-            },
-          ]}
-        />
-      ) : (
-        <View style={[ImageUploaderStyle.innerContainer]} />
-      )}
+      <Image
+        source={{
+          uri: imagePath.uri || imgUri,
+        }}
+        style={[
+          ImageUploaderStyle.image,
+          {
+            height: ImageUploaderStyle.container.height,
+            width: ImageUploaderStyle.container.width,
+          },
+        ]}
+      />
     </TouchableOpacity>
   );
 };

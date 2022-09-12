@@ -37,6 +37,11 @@ const DatePickerStyle = {
       color: colors.primary,
       flex: 1,
     },
+    label: {
+      fontSize: 14,
+      color: colors.black,
+      marginBottom: 10,
+    },
     placeHolderTextColor: colors.secondary,
   },
   error: {

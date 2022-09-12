@@ -20,15 +20,26 @@ const InputComp = props => {
     textAlignVertical,
     editable,
     onSubmitEditing,
+    maxLength,
+    minLength = 0,
+    label,
+    styleLabel,
     ref,
   } = props;
   const [isFocused, setIsFocused] = useState(false);
+  const [errorState, setErrorState] = useState(error);
 
   const focusedObj = isFocused ? inputStyle.row.focused : {};
-  const errorContainer = error ? inputStyle.row.error.container : {};
-  const errorIcon = error ? inputStyle.row.error.icon : {};
+  const errorLabel = errorState ? inputStyle.row.error.label : {};
+  const errorContainer = errorState ? inputStyle.row.error.container : {};
+  const errorIcon = errorState ? inputStyle.row.error.icon : {};
   return (
     <View style={{...inputStyle.wrapper, ...styleWrapper}}>
+      {label && (
+        <Text style={[inputStyle.row.label, errorLabel, styleLabel]}>
+          {label}
+        </Text>
+      )}
       <View
         style={{
           ...inputStyle.row.common,
@@ -41,6 +52,7 @@ const InputComp = props => {
         <TextInput
           ref={ref}
           value={value}
+          maxLength={maxLength}
           placeholder={placeholder}
           onChangeText={setValue}
           placeholderTextColor={
@@ -49,7 +61,14 @@ const InputComp = props => {
               : inputStyle.row.placeHolderTextColor
           }
           onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
+          onBlur={() => {
+            setIsFocused(false);
+            if (value && value.length < minLength) {
+              setErrorState(`minimum ${minLength} character is required`);
+            } else {
+              setErrorState(undefined);
+            }
+          }}
           multiline={multiline}
           numberOfLines={numberOfLines}
           textAlignVertical={textAlignVertical}
@@ -60,9 +79,9 @@ const InputComp = props => {
         {/* endIcon */}
         {endIcon && endIcon({...inputStyle.row.icon, ...errorIcon})}
       </View>
-      {error && (
+      {errorState && (
         <Text style={{...inputStyle.error.text, ...styleErrorText}}>
-          {error}
+          {errorState}
         </Text>
       )}
     </View>

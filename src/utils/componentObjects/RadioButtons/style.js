@@ -32,6 +32,11 @@ const RadioButtonsStyle = {
     fontSize: 14,
     color: colors.primary,
   },
+  label: {
+    fontSize: 14,
+    color: colors.black,
+    marginBottom: 10,
+  },
 };
 
 export default RadioButtonsStyle;

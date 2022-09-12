@@ -9,10 +9,9 @@ const ImageUploaderStyle = {
     alignItems: 'center',
     justifyContent: 'center',
   },
-  innerContainer: {
+  image: {
     height: 90,
     width: 90,
-    backgroundColor: colors.secondary,
     borderRadius: 50,
   },
 };
