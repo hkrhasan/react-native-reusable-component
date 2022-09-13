@@ -42,7 +42,7 @@ const DatePickerComp = props => {
         style={{
           ...DatePickerStyle.row.common,
           ...focusedObj,
-          ...errorContainer,
+          // ...errorContainer,
           ...styleContainer,
         }}
         onPress={() => setOpen(true)}>
@@ -52,9 +52,11 @@ const DatePickerComp = props => {
           value={inputValue}
           placeholder={placeholder}
           placeholderTextColor={
-            placeholderTextColor || error
-              ? DatePickerStyle.row.error.placeHolderTextColor
-              : DatePickerStyle.row.placeHolderTextColor
+            placeholderTextColor
+
+            // || error
+            //   ? DatePickerStyle.row.error.placeHolderTextColor
+            //   : DatePickerStyle.row.placeHolderTextColor
           }
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
@@ -63,11 +65,17 @@ const DatePickerComp = props => {
         />
         {/* endIcon */}
         {endIcon ? (
-          endIcon({...DatePickerStyle.row.icon, ...errorIcon})
+          endIcon({
+            ...DatePickerStyle.row.icon,
+            // ...errorIcon
+          })
         ) : (
           <Feather
             name="calendar"
-            style={[DatePickerStyle.row.icon, errorIcon]}
+            style={[
+              DatePickerStyle.row.icon,
+              // errorIcon
+            ]}
           />
         )}
       </Pressable>

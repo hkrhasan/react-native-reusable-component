@@ -22,6 +22,8 @@ function DropDownSingleSelect(props) {
     label,
     styleLabel,
     styleComponentWrapper,
+    error,
+    styleErrorText,
   } = props;
   const [open, setOpen] = useState(false);
 
@@ -37,6 +39,11 @@ function DropDownSingleSelect(props) {
         setItems={setItems}
         {...props}
       />
+      {error && (
+        <Text style={{...inputStyle.error.text, ...styleErrorText}}>
+          {error}
+        </Text>
+      )}
     </View>
   );
 }

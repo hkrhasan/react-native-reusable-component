@@ -1,5 +1,5 @@
 import {View, Text, TextInput} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import inputStyle from '../../utils/componentObjects/Input/style';
 
 const InputComp = props => {
@@ -27,16 +27,26 @@ const InputComp = props => {
     ref,
   } = props;
   const [isFocused, setIsFocused] = useState(false);
-  const [errorState, setErrorState] = useState(error);
+  const [errorState, setErrorState] = useState(undefined);
 
   const focusedObj = isFocused ? inputStyle.row.focused : {};
   const errorLabel = errorState ? inputStyle.row.error.label : {};
   const errorContainer = errorState ? inputStyle.row.error.container : {};
   const errorIcon = errorState ? inputStyle.row.error.icon : {};
+
+  useEffect(() => {
+    setErrorState(error);
+  }, [error]);
+
   return (
     <View style={{...inputStyle.wrapper, ...styleWrapper}}>
       {label && (
-        <Text style={[inputStyle.row.label, errorLabel, styleLabel]}>
+        <Text
+          style={[
+            inputStyle.row.label,
+            // errorLabel,
+            styleLabel,
+          ]}>
           {label}
         </Text>
       )}
@@ -44,7 +54,7 @@ const InputComp = props => {
         style={{
           ...inputStyle.row.common,
           ...focusedObj,
-          ...errorContainer,
+          // ...errorContainer,
           ...styleContainer,
         }}>
         {/* startIcon */}

@@ -14,7 +14,6 @@ const ActionSheetScreen = () => {
 
   // callbacks
   const handleSheetChange = index => {
-    console.log('handleSheetChange', index);
   };
   const handleSnapPress = index => {
     sheetRef.current?.snapToIndex(index);

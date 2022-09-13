@@ -1,5 +1,5 @@
 import {View, Text, TextInput} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import inputStyle from '../../utils/componentObjects/Input/style';
 
 const PhoneInput = props => {
@@ -26,7 +26,7 @@ const PhoneInput = props => {
     ref,
   } = props;
   const [isFocused, setIsFocused] = useState(false);
-  const [errorState, setErrorState] = useState(error);
+  const [errorState, setErrorState] = useState(undefined);
 
   const [errorContainer, setErrorContainer] = useState(
     errorState ? inputStyle.row.error.container : {},
@@ -41,6 +41,11 @@ const PhoneInput = props => {
   );
 
   const focusedObj = isFocused ? inputStyle.row.focused : {};
+
+  useEffect(() => {
+    setErrorState(error);
+  }, [error]);
+
   return (
     <View style={{...inputStyle.wrapper, ...styleWrapper}}>
       {label && (
@@ -94,12 +99,23 @@ const PhoneInput = props => {
         {/* endIcon */}
         {endIcon && endIcon({...inputStyle.row.icon, ...errorIcon})}
       </View>
-      {error ||
+      {internalError && (
+        <Text style={{...inputStyle.error.text, ...styleErrorText}}>
+          {internalError}
+        </Text>
+      )}
+
+      {error && (
+        <Text style={{...inputStyle.error.text, ...styleErrorText}}>
+          {error}
+        </Text>
+      )}
+      {/* {error ||
         (internalError && (
           <Text style={{...inputStyle.error.text, ...styleErrorText}}>
             {error || internalError}
           </Text>
-        ))}
+        ))} */}
     </View>
   );
 };

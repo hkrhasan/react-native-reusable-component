@@ -37,19 +37,14 @@ const ImageUploader = props => {
       }
 
       imageFunction(options, res => {
-        console.log('Response = ', res);
         if (res.didCancel) {
-          console.log('User cancelled image picker');
           setLaunchType && setLaunchType(null);
         } else if (res.error) {
-          console.log('ImagePicker Error: ', res.error);
           setLaunchType && setLaunchType(null);
         } else if (res.customButton) {
-          console.log('User tapped custom button: ', res.customButton);
           setLaunchType && setLaunchType(null);
         } else {
           let source = res.assets[0];
-          console.log('Source => ', source.uri);
           setImagePath(source);
           setLaunchType && setLaunchType(null);
         }
@@ -62,7 +57,6 @@ const ImageUploader = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [launchType]);
 
-  console.log({imagePath});
   return (
     <TouchableOpacity
       onPress={onPress}

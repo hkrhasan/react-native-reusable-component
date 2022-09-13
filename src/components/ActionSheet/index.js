@@ -1,5 +1,5 @@
 import React from 'react';
-import BottomSheet from '@gorhom/bottom-sheet';
+import BottomSheet, {BottomSheetScrollView} from '@gorhom/bottom-sheet';
 
 const ActionSheetComp = props => {
   const {sheetRef, snapPoints, handleSheetChange, styleSheet, children} = props;
@@ -11,7 +11,9 @@ const ActionSheetComp = props => {
       style={styleSheet}
       enablePanDownToClose
       {...props}>
-      {children}
+      <BottomSheetScrollView contentContainerStyle={{flex: 1}}>
+        {children}
+      </BottomSheetScrollView>
     </BottomSheet>
   );
 };

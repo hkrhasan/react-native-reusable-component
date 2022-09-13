@@ -5,14 +5,16 @@ export const defaultState = {
   },
   agePicker: {
     label: 'Age',
-    age: undefined,
+    age: '',
     ageArray: [10, 20, 30, 40, 50, 60, 70],
     sheetSnap: ['60%'],
     placeholder: 'Select Age',
+    error: '',
   },
   name: {
     value: '@hkrhasan',
     edit: false,
+    error: '',
   },
   firstName: {
     label: 'First Name',
@@ -38,6 +40,7 @@ export const defaultState = {
     value: null,
     label: 'Select country',
     zIndex: 10,
+    error: '',
   },
   state: {
     data: [
@@ -48,11 +51,12 @@ export const defaultState = {
     ],
     values: [],
     label: 'Select States',
+    error: '',
   },
   about: {
     value: '',
     error: '',
-    label: '',
+    label: 'About Us',
   },
   radios: {
     data: [
@@ -61,40 +65,35 @@ export const defaultState = {
       {id: 3, label: 'Others', selected: false},
     ],
     label: 'Gender',
+    error: '',
   },
   quantity: {
     value: 0,
     min: 0,
     max: 10,
     label: 'Quantity',
+    error: '',
   },
   date: {
-    value: new Date(),
+    value: '',
+    defaultValue: '',
     placeholder: 'dd-mm-yyyy',
     dateFormat: 'dd-MM-yyyy',
     label: 'DOB',
+    error: '',
   },
   slider: {
     sliderValue: {value: 0.2},
+    error: '',
   },
   checks: {
     data: [
       {title: 'I agree', checked: true},
       {title: 'I agree', checked: false},
     ],
+    error: '',
+  },
+  modal: {
+    isVisible: false,
   },
 };
-
-// export const resetState = managers => {
-//   const {
-//     // image upload controllers
-//     setImagePath,
-//     setImageSnapPoints,
-//     setLaunchType,
-//     closeImageSheet,
-//     // age picker controller
-//     setAge,
-//     setAgeSnapPoints,
-//     closeAgeSheet,
-//   } = managers || {};
-// };

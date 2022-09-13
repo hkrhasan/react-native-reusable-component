@@ -8,7 +8,7 @@ import {
   Pressable,
   TextInput,
 } from 'react-native';
-import React, {Fragment, useState, useRef} from 'react';
+import React, {Fragment, useState, useRef, useEffect} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -26,6 +26,7 @@ import {
   PhoneInput,
   PlusMinusButton,
   SliderComp,
+  ModalComp,
 } from '../../components';
 import OpenDrawer from '../../components/Header/OpenDrawer';
 import colors from '../../style/colors';
@@ -37,22 +38,26 @@ const height = Dimensions.get('window').height;
 
 const FormScreen = ({navigation}) => {
   const [allStates, setAllStates] = useState({...defaultState});
+  const [scrollOffset, setScrollOffset] = useState(null);
+  const [actionSheetIsOpened, setActionSheetIsOpened] = useState(false);
+  const [multiSelected, setMultiSelected] = useState([]);
 
   const onChange = (obj, field, value) => {
-    console.log(obj, field, value);
-    setAllStates({...allStates, [obj]: {...allStates[obj], [field]: value}});
+    setAllStates(pre => {
+      const currObj = {...pre[obj], [field]: value};
+      const fullState = {...pre, [obj]: currObj};
+
+      return fullState;
+    });
   };
 
   // =========================: Image Upload Conf :============================
-  const [imagePath, setImagePath] = useState({});
   const imageSheetRef = useRef(null);
   const [launchType, setLaunchType] = useState(null);
-  const [imageSnapPoints, setImageSnapPoints] = useState(['20%']);
   const onChangeImageSheet = index => {
     if (index === -1) {
       setActionSheetIsOpened(false);
     }
-    console.log('handleSheetChange', index);
   };
   const openImageSheet = index => {
     setActionSheetIsOpened(false);
@@ -64,8 +69,6 @@ const FormScreen = ({navigation}) => {
   // =========================: End Image Upload Conf :============================
 
   // =========================: Start Age Conf :============================
-  const [age, setAge] = useState(undefined);
-  const [ageSnapPoints, setAgeSnapPoints] = useState(['60%']);
   const ageSheetRef = useRef(null);
   const onChangeAgeSheet = index => {
     if (index === -1) {
@@ -81,84 +84,100 @@ const FormScreen = ({navigation}) => {
   const closeAgeSheet = () => {
     ageSheetRef.current?.close();
   };
-  // =========================: End Age Conf :============================
 
-  // =========================: Name conf Start :============================
-  const [name, setName] = useState({
-    value: 'hkrhasan',
-    error: '',
-    edit: false,
-  });
-  // =========================: Name conf End :============================
-  // =========================: FirstName conf Start :============================
-  const [firstName, setFirstName] = useState({
-    value: '',
-    error: '',
-  });
-  // =========================: FirstName conf End :============================
+  // =========================: Start Submit Sheet Conf :============================
 
-  // =========================: Phone conf Start :============================
-  const phoneRef = useRef(null);
-  const [phone, setPhone] = useState({
-    value: '',
-    error: '',
-    ref: useRef(null),
-  });
-  // =========================: Phone conf End :============================
+  const submitSheetRef = useRef(null);
+  const onChangeSubmitSheet = index => {
+    if (index === -1) {
+      setActionSheetIsOpened(false);
+    }
+  };
 
-  // =========================: Country conf start :============================
-  const [value, setValue] = useState(null);
-  const [country, setCountry] = useState([
-    {label: 'India', value: 'india'},
-    {label: 'China', value: 'china'},
-    {label: 'Pakistan', value: 'pakistan'},
-    {label: 'USA', value: 'usa'},
-  ]);
+  const openSubmitSheet = index => {
+    setActionSheetIsOpened(false);
+    submitSheetRef.current?.snapToIndex(index);
+  };
 
-  // =========================: Country conf end :============================
-  // =========================: State conf start :============================
-  const [multiValue, setMultiValue] = useState([]);
-  const [states, setStates] = useState([
-    {label: 'Delhi', value: 'delhi'},
-    {label: 'Chennai', value: 'Chennai'},
-    {label: 'Mumbai', value: 'Mumbai'},
-    {label: 'Punjab', value: 'Punjab'},
-  ]);
-  // =========================: State conf end :============================
+  const closeSubmitSheet = () => {
+    submitSheetRef.current?.close();
+  };
 
-  // =========================: About conf start :============================
-  const [about, setAbout] = useState('');
-  // =========================: About conf end :============================
+  const onSubmit = () => {
+    const {
+      about,
+      agePicker,
+      checks,
+      country,
+      date,
+      firstName,
+      imageUpload,
+      name,
+      phone,
+      quantity,
+      radios,
+      slider,
+      state,
+    } = allStates || {};
 
-  // =========================: Radios conf start :============================
-  const [radios, setRadios] = useState([
-    {id: 1, label: 'Male', selected: true},
-    {id: 2, label: 'Female', selected: false},
-    {id: 3, label: 'Others', selected: false},
-  ]);
-  // =========================: Radios conf end :============================
-  // =========================: Quantity conf start :============================
-  const [quantity, setQuantity] = useState(0);
-  // =========================: Quantity conf end :============================
+    const errors = [];
 
-  // =========================: Date Picker conf start :============================
-  const [date, setDate] = useState(new Date());
-  // =========================: Date Picker conf end :============================
-  // =========================: Slider conf start :============================
-  const [sliderValue, setSliderValue] = useState({value: 0.2});
-  // =========================: Slider conf end :============================
+    // validate values
+    if (!firstName.value) {
+      onChange('firstName', 'error', 'firstName is required');
+      errors.push('firstName');
+    }
+    if (!name.value) {
+      onChange('name', 'error', 'name is required');
+      errors.push('name');
+    }
 
-  // =========================: CheckBox conf start :============================
-  const [checklistStack, setChacklistStack] = useState([
-    {title: 'I agree', checked: true},
-    {title: 'I agree', checked: false},
-  ]);
-  // =========================: CheckBox conf end :============================
-  // =========================: Start Other Conf :============================
-  const [actionSheetIsOpened, setActionSheetIsOpened] = useState(false);
-  // =========================: End Other Conf :============================
+    if (!agePicker.age) {
+      onChange('agePicker', 'error', 'age is required');
+      errors.push('agePicker');
+    }
+    if (!about.value) {
+      onChange('about', 'error', 'about is required');
+      errors.push('about');
+    }
+    if (!date.value) {
+      onChange('date', 'error', 'date is required');
+      errors.push('date');
+    }
+    if (!country.value) {
+      onChange('country', 'error', 'country is required');
+      errors.push('value');
+    }
+    if (!phone.value) {
+      onChange('phone', 'error', 'phone is required');
+      errors.push('phone');
+    }
+    if (!quantity.value) {
+      onChange('quantity', 'error', 'quantity is required');
+      errors.push('quantity');
+    }
+    if (!slider.sliderValue.value) {
+      onChange('slider', 'error', 'slider is required');
+      errors.push('slider');
+    }
+    if (!state.values.length) {
+      onChange('state', 'error', 'state is required');
+      errors.push('state');
+    }
 
-  console.log(multiValue);
+    if (!errors.length) {
+      openSubmitSheet(0);
+    }
+  };
+
+  const onReset = () => {
+    console.log('reset click');
+    setAllStates(defaultState);
+  };
+
+  useEffect(() => {
+    onChange('state', 'values', multiSelected);
+  }, [multiSelected]);
 
   return (
     // eslint-disable-next-line react-native/no-inline-styles
@@ -240,6 +259,7 @@ const FormScreen = ({navigation}) => {
               setValue={text => onChange('firstName', 'value', text)}
               minLength={allStates.firstName.minLength}
               maxLength={allStates.firstName.maxLength}
+              error={allStates.firstName.error}
             />
           </View>
           {/* ============: firstname field end :=============== */}
@@ -247,22 +267,44 @@ const FormScreen = ({navigation}) => {
           {/* ============: Age field start :=============== */}
           <View style={styles.horizontalPadding}>
             {allStates.agePicker.label && (
-              <Text style={styles.heading}>{allStates.agePicker.label}</Text>
+              <Text
+                style={[
+                  styles.heading,
+                  // {
+                  //   color: allStates.agePicker.error
+                  //     ? colors.error
+                  //     : colors.black,
+                  // },
+                ]}>
+                {allStates.agePicker.label}
+              </Text>
             )}
             <Pressable
               onPress={() => openAgeSheet(0)}
               style={{
                 borderWidth: 1,
-                borderColor: colors.primary,
+                // borderColor: allStates.agePicker.error
+                //   ? colors.error
+                //   : colors.primary,
                 borderRadius: 10,
                 backgroundColor: colors.white,
                 paddingVertical: 14,
                 paddingHorizontal: 10,
               }}>
-              <Text>
+              <Text
+                style={[
+                  {
+                    color: allStates.agePicker.error
+                      ? colors.primary
+                      : colors.black,
+                  },
+                ]}>
                 {allStates.agePicker.age || allStates.agePicker.placeholder}
               </Text>
             </Pressable>
+            {allStates?.agePicker?.error && (
+              <Text style={[styles.error]}>{allStates?.agePicker?.error}</Text>
+            )}
           </View>
           {/* ============: Age field end :=============== */}
 
@@ -274,6 +316,7 @@ const FormScreen = ({navigation}) => {
               value={allStates.phone.value}
               setValue={text => onChange('phone', 'value', text)}
               length={allStates.phone.length}
+              error={allStates.phone.error}
             />
           </View>
           {/* ============: Phone field end :=============== */}
@@ -293,6 +336,7 @@ const FormScreen = ({navigation}) => {
               searchable={true}
               zIndex={actionSheetIsOpened ? 0 : allStates.country.zIndex}
               style={{marginBottom: 10}}
+              error={allStates.country.error}
             />
           </View>
           {/* ============: Country field end :=============== */}
@@ -300,9 +344,9 @@ const FormScreen = ({navigation}) => {
           {/* ============: States field start :=============== */}
           <View style={styles.horizontalPadding}>
             <DropDownMultiSelect
-              value={multiValue}
               label={allStates.state.label}
-              setValue={setMultiValue}
+              selectedValues={allStates.state.values}
+              setSelectedValues={setMultiSelected}
               items={allStates.state.data}
               setItems={data => {
                 onChange('state', 'data', data);
@@ -313,6 +357,7 @@ const FormScreen = ({navigation}) => {
               mode="BADGE"
               searchable={true}
               zIndex={actionSheetIsOpened ? 0 : 9}
+              error={allStates.state.error}
             />
           </View>
           {/* ============: States field start :=============== */}
@@ -347,6 +392,7 @@ const FormScreen = ({navigation}) => {
               setDate={d => onChange('date', 'value', d)}
               dateFormat={allStates.date.dateFormat}
               placeholder={allStates.date.placeholder}
+              error={allStates.date.error}
             />
           </View>
           <View style={styles.horizontalPadding}>
@@ -357,6 +403,7 @@ const FormScreen = ({navigation}) => {
               multiline={true}
               numberOfLines={5}
               textAlignVertical="top"
+              error={allStates.about.error}
               editable
             />
           </View>
@@ -364,12 +411,14 @@ const FormScreen = ({navigation}) => {
             <Text style={[styles.heading]}>Range Slider</Text>
             <View>
               <SliderComp
-                value={sliderValue.value}
-                setValue={setSliderValue}
+                value={allStates.slider.sliderValue.value}
+                setValue={v => onChange('slider', 'sliderValue', v)}
                 animateTransitions={true}
                 thumbTintColor={colors.secondary}
               />
-              <Text>value: {parseInt(sliderValue.value * 100)}</Text>
+              <Text>
+                value: {parseInt(allStates.slider.sliderValue.value * 100)}
+              </Text>
             </View>
           </View>
           <View style={styles.horizontalPadding}>
@@ -395,22 +444,48 @@ const FormScreen = ({navigation}) => {
               variant="outlined"
               size="small"
               containerStyle={{marginBottom: 10, width: '45%'}}
+              onPress={onReset}
             />
             <ButtonComp
               size="small"
               label="Submit"
               containerStyle={{marginBottom: 10, width: '45%'}}
+              onPress={onSubmit}
+            />
+            {/* <ButtonComp label="Reset" containerStyle={{marginBottom: 10}} /> */}
+          </View>
+          <View
+            style={[
+              styles.horizontalPadding,
+              {
+                marginTop: 10,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              },
+            ]}>
+            <ButtonComp
+              label="Reset"
+              variant="outlined"
+              size="small"
+              containerStyle={{marginBottom: 10, width: '45%'}}
+            />
+            <ButtonComp
+              size="small"
+              label="Submit"
+              containerStyle={{marginBottom: 10, width: '45%'}}
+              onPress={onSubmit}
             />
             {/* <ButtonComp label="Reset" containerStyle={{marginBottom: 10}} /> */}
           </View>
         </KeyboardAwareScrollView>
+
         {/* ==========================: ActionSheets Renders :======================== */}
         {/* Image Sheet start */}
         <ActionSheetComp
           style={{flex: 1, justifyContent: 'center'}}
           index={-1}
           sheetRef={imageSheetRef}
-          snapPoints={imageSnapPoints}
+          snapPoints={allStates.imageUpload.sheetSnap}
           handleSheetChange={onChangeImageSheet}>
           <View
             style={[
@@ -450,7 +525,7 @@ const FormScreen = ({navigation}) => {
           style={{flex: 1, justifyContent: 'center'}}
           index={-1}
           sheetRef={ageSheetRef}
-          snapPoints={ageSnapPoints}
+          snapPoints={allStates.agePicker.sheetSnap}
           handleSheetChange={onChangeAgeSheet}>
           <View
             style={[
@@ -459,13 +534,13 @@ const FormScreen = ({navigation}) => {
                 marginTop: 10,
               },
             ]}>
-            {[20, 30, 40, 50, 60, 70].map(age => (
+            {allStates.agePicker.ageArray.map(age => (
               <ButtonComp
                 label={age}
                 variant="outlined"
                 size="small"
                 onPress={() => {
-                  setAge(age);
+                  onChange('agePicker', 'age', age);
                   closeAgeSheet();
                 }}
                 containerStyle={{marginBottom: 10}}
@@ -475,6 +550,62 @@ const FormScreen = ({navigation}) => {
           </View>
         </ActionSheetComp>
         {/* Age Sheet end */}
+
+        {/* On Submit Action Sheet */}
+        <ActionSheetComp
+          style={{flex: 1, justifyContent: 'center'}}
+          index={-1}
+          sheetRef={submitSheetRef}
+          snapPoints={['100%']}
+          handleSheetChange={onChangeSubmitSheet}>
+          <View
+            style={[
+              styles.horizontalPadding,
+              {
+                marginTop: 10,
+              },
+            ]}>
+            <View style={{height: 400, padding: 10}}>
+              <Text style={[styles.heading, {marginTop: 10}]}>
+                Image states
+              </Text>
+              <Text>{JSON.stringify(allStates.imageUpload)}</Text>
+              <Text style={[styles.heading, {marginTop: 10}]}>name states</Text>
+              <Text>{JSON.stringify(allStates.name)}</Text>
+              <Text style={[styles.heading, {marginTop: 10}]}>
+                FirstName states
+              </Text>
+              <Text>{JSON.stringify(allStates.firstName)}</Text>
+              <Text style={[styles.heading, {marginTop: 10}]}>
+                Phone states
+              </Text>
+              <Text>{JSON.stringify(allStates.phone)}</Text>
+              <Text style={[styles.heading, {marginTop: 10}]}>age states</Text>
+              <Text>{JSON.stringify(allStates.agePicker)}</Text>
+              <Text style={[styles.heading, {marginTop: 10}]}>DOB states</Text>
+              <Text>{JSON.stringify(allStates.date)}</Text>
+              <Text style={[styles.heading, {marginTop: 10}]}>
+                Country states
+              </Text>
+              <Text>{JSON.stringify(allStates.country)}</Text>
+              <Text style={[styles.heading, {marginTop: 10}]}>
+                States states
+              </Text>
+              <Text>{JSON.stringify(allStates.state)}</Text>
+              <Text style={[styles.heading, {marginTop: 10}]}>
+                Quantity states
+              </Text>
+              <Text>{JSON.stringify(allStates.quantity)}</Text>
+              <Text style={[styles.heading, {marginTop: 10}]}>
+                checks states
+              </Text>
+              <Text>{JSON.stringify(allStates.checks)}</Text>
+              <View style={{marginTop: 20}}>
+                <ButtonComp label="close" onPress={closeSubmitSheet} />
+              </View>
+            </View>
+          </View>
+        </ActionSheetComp>
         {/* ==========================: ActionSheets Renders :======================== */}
       </ScrollView>
     </View>
@@ -499,5 +630,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderColor: colors.primary,
     paddingVertical: 0,
+  },
+  error: {
+    color: colors.error,
+    fontSize: 12,
+    marginLeft: 5,
   },
 });

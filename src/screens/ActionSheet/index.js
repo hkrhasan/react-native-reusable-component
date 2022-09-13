@@ -10,9 +10,7 @@ const ActionSheetScreen = () => {
   const snapPoints = ['25%', '50%', '90%'];
 
   // callbacks
-  const handleSheetChange = index => {
-    console.log('handleSheetChange', index);
-  };
+  const handleSheetChange = index => {};
   const handleSnapPress = index => {
     sheetRef.current?.snapToIndex(index);
   };
