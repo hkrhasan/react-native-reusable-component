@@ -44,6 +44,8 @@ const FormScreen = ({navigation}) => {
   const [multiSelected, setMultiSelected] = useState([]);
   const [submittedData, setSubmittedData] = useState({});
   const [submitError, setSubmitError] = useState([]);
+  const [imageSheetIsVisible, setImageSheetIsVisible] = useState(false);
+  const [ageSheetIsVisible, setAgeSheetIsVisible] = useState(false);
   const previewModalRef = useRef(null);
 
   const openPreviewModal = () => {
@@ -273,7 +275,7 @@ const FormScreen = ({navigation}) => {
               setImagePath={source =>
                 onChange('imageUpload', 'imagePath', source)
               }
-              onPress={() => openImageSheet(0)}
+              onPress={() => setImageSheetIsVisible(true)}
               launchType={launchType}
               setLaunchType={setLaunchType}
             />
@@ -345,7 +347,7 @@ const FormScreen = ({navigation}) => {
               </Text>
             )}
             <Pressable
-              onPress={() => openAgeSheet(0)}
+              onPress={() => setAgeSheetIsVisible(true)}
               style={{
                 borderWidth: 1,
                 // borderColor: allStates.agePicker.error
@@ -550,18 +552,18 @@ const FormScreen = ({navigation}) => {
         {/* ==========================: ActionSheets Renders :======================== */}
         {/* Image Sheet start */}
         <ActionSheetComp
-          style={{flex: 1, justifyContent: 'center'}}
-          index={-1}
-          sheetRef={imageSheetRef}
-          snapPoints={allStates.imageUpload.sheetSnap}
-          handleSheetChange={onChangeImageSheet}>
+          isVisible={imageSheetIsVisible}
+          animate={true}
+          onBackdropPress={() => setImageSheetIsVisible(false)}>
           <View
             style={[
               styles.horizontalPadding,
               {
-                marginTop: 10,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
+                backgroundColor: colors.white,
+                height: 150,
+                paddingVertical: 20,
+                borderTopLeftRadius: 12,
+                borderTopRightRadius: 12,
               },
             ]}>
             <ButtonComp
@@ -570,18 +572,18 @@ const FormScreen = ({navigation}) => {
               size="small"
               onPress={() => {
                 setLaunchType('camera');
-                closeImageSheet();
+                setImageSheetIsVisible(false);
               }}
-              containerStyle={{marginBottom: 10, width: '45%'}}
+              containerStyle={{marginBottom: 10}}
             />
             <ButtonComp
-              size="gallery"
+              size="small"
               label="Gallery"
               onPress={() => {
                 setLaunchType('gallery');
-                closeImageSheet();
+                setImageSheetIsVisible(false);
               }}
-              containerStyle={{marginBottom: 10, width: '45%'}}
+              containerStyle={{marginBottom: 10}}
             />
             {/* <ButtonComp label="Reset" containerStyle={{marginBottom: 10}} /> */}
           </View>
@@ -590,26 +592,29 @@ const FormScreen = ({navigation}) => {
 
         {/* Age Sheet start */}
         <ActionSheetComp
-          style={{flex: 1, justifyContent: 'center'}}
-          index={-1}
-          sheetRef={ageSheetRef}
-          snapPoints={allStates.agePicker.sheetSnap}
-          handleSheetChange={onChangeAgeSheet}>
+          isVisible={ageSheetIsVisible}
+          animate={true}
+          onBackdropPress={() => setAgeSheetIsVisible(false)}>
           <View
             style={[
               styles.horizontalPadding,
               {
-                marginTop: 10,
+                backgroundColor: colors.white,
+                height: 400,
+                paddingVertical: 20,
+                borderTopLeftRadius: 12,
+                borderTopRightRadius: 12,
               },
             ]}>
-            {allStates.agePicker.ageArray.map(age => (
+            {allStates.agePicker.ageArray.map((age, index) => (
               <ButtonComp
+                key={index}
                 label={age}
                 variant="outlined"
                 size="small"
                 onPress={() => {
                   onChange('agePicker', 'age', age);
-                  closeAgeSheet();
+                  setAgeSheetIsVisible(false);
                 }}
                 containerStyle={{marginBottom: 10}}
               />
