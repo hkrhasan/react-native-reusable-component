@@ -49,7 +49,12 @@ const PhoneInput = props => {
   return (
     <View style={{...inputStyle.wrapper, ...styleWrapper}}>
       {label && (
-        <Text style={[inputStyle.row.label, errorLabel, styleLabel]}>
+        <Text
+          style={[
+            inputStyle.row.label,
+            // errorLabel,
+            styleLabel,
+          ]}>
           {label}
         </Text>
       )}
@@ -57,7 +62,7 @@ const PhoneInput = props => {
         style={{
           ...inputStyle.row.common,
           ...focusedObj,
-          ...errorContainer,
+          // ...errorContainer,
           ...styleContainer,
         }}>
         {/* startIcon */}

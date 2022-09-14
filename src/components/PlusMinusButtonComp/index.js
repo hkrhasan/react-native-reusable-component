@@ -47,6 +47,7 @@ const PlusMinusButton = props => {
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <TouchableOpacity
           onPress={onDecrement}
+          disabled={quantity <= min}
           style={[
             PlusMinusStyle.buttonContainer,
             styleActionBtnContainer,
@@ -70,6 +71,7 @@ const PlusMinusButton = props => {
         </Text>
         <TouchableOpacity
           onPress={onIncrement}
+          disabled={quantity >= max}
           style={[PlusMinusStyle.buttonContainer, {height: size, width: size}]}>
           <Text
             style={[

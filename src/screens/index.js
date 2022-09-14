@@ -17,6 +17,7 @@ import DatePickerScreen from './DatePicker';
 import ModalScreen from './Modal';
 import ActionSheetScreen from './ActionSheet';
 import FormScreen from './Form';
+import TestScreen from './TestScreen';
 
 export {
   ButtonScreen,
@@ -36,4 +37,5 @@ export {
   ModalScreen,
   ActionSheetScreen,
   FormScreen,
+  TestScreen,
 };

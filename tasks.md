@@ -1,19 +1,15 @@
 # 9-11-2022
 
-- [X] Name editaable
+- [X] Some buttons like refetch, Preveiw
 
-- [X] min/max in input
-
-- [X] min/max in quantity
-
-- [X] Placeholde in datepicker
-
-- [X] label dynamically in all component
-
-- [X] Slider component
-
-- [X] Age field with action sheet
-
-- [ ] Validation on submit
-
-- [ ] Some buttons like submit, reset, refetch, Preveiw
+# 13-11-2022
+- [ ] on submit create types of form first clear error on submit and another is clear on blur
+- [ ] disable plus and minus button and add validation
+- [ ] List component and accordian
+- [ ] remove unwanted libraries 
+- [ ] Social icon 
+- [ ] Google Map 
+- [ ] change bottom sheet
+- [ ] change tab view
+- [ ] Prop base drawer bar
+- [ ] 

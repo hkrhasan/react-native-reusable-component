@@ -18,6 +18,7 @@ import ImageUploader from './ImageUploader';
 import PhoneInput from './PhoneInput';
 import PlusMinusButton from './PlusMinusButtonComp';
 import SliderComp from './SliderComp';
+import Modal2 from './Modal2';
 
 export {
   ButtonComp,
@@ -41,4 +42,5 @@ export {
   PhoneInput,
   PlusMinusButton,
   SliderComp,
+  Modal2,
 };

@@ -19,6 +19,7 @@ import {
   ModalScreen,
   ActionSheetScreen,
   FormScreen,
+  TestScreen,
 } from '../screens';
 
 const Drawer = createDrawerNavigator();
@@ -52,6 +53,7 @@ const RootNavigator = props => {
         <Drawer.Screen name="Modal" component={ModalScreen} />
         <Drawer.Screen name="ActionSheet" component={ActionSheetScreen} />
         <Drawer.Screen name="Form" component={FormScreen} />
+        <Drawer.Screen name="Test" component={TestScreen} />
         {/* <Drawer.Screen name="StartIcon" component={StartIconScreen} />
         <Drawer.Screen name="EndIcon" component={EndIconScreen} />
         <Drawer.Screen name="SubMenuFirst" component={SubMenuFirstScreen} />

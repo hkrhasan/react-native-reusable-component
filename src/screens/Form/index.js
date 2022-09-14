@@ -7,6 +7,7 @@ import {
   Dimensions,
   Pressable,
   TextInput,
+  ToastAndroid,
 } from 'react-native';
 import React, {Fragment, useState, useRef, useEffect} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -27,6 +28,7 @@ import {
   PlusMinusButton,
   SliderComp,
   ModalComp,
+  Modal2,
 } from '../../components';
 import OpenDrawer from '../../components/Header/OpenDrawer';
 import colors from '../../style/colors';
@@ -41,6 +43,17 @@ const FormScreen = ({navigation}) => {
   const [scrollOffset, setScrollOffset] = useState(null);
   const [actionSheetIsOpened, setActionSheetIsOpened] = useState(false);
   const [multiSelected, setMultiSelected] = useState([]);
+  const [submittedData, setSubmittedData] = useState({});
+  const [submitError, setSubmitError] = useState([]);
+  const previewModalRef = useRef(null);
+
+  const openPreviewModal = () => {
+    previewModalRef.current?.open();
+  };
+
+  const closePreviewModal = () => {
+    previewModalRef.current?.close();
+  };
 
   const onChange = (obj, field, value) => {
     setAllStates(pre => {
@@ -126,53 +139,106 @@ const FormScreen = ({navigation}) => {
     if (!firstName.value) {
       onChange('firstName', 'error', 'firstName is required');
       errors.push('firstName');
+    } else {
+      onChange('firstName', 'error', '');
     }
+
     if (!name.value) {
       onChange('name', 'error', 'name is required');
       errors.push('name');
+    } else {
+      onChange('name', 'error', '');
     }
 
     if (!agePicker.age) {
       onChange('agePicker', 'error', 'age is required');
       errors.push('agePicker');
+    } else {
+      onChange('agePicker', 'error', '');
     }
+
     if (!about.value) {
       onChange('about', 'error', 'about is required');
       errors.push('about');
+    } else {
+      onChange('about', 'error', '');
     }
+
     if (!date.value) {
       onChange('date', 'error', 'date is required');
       errors.push('date');
+    } else {
+      onChange('date', 'error', '');
     }
+
     if (!country.value) {
       onChange('country', 'error', 'country is required');
       errors.push('value');
+    } else {
+      onChange('country', 'error', '');
     }
+
     if (!phone.value) {
       onChange('phone', 'error', 'phone is required');
       errors.push('phone');
+    } else {
+      onChange('phone', 'error', '');
     }
+
     if (!quantity.value) {
       onChange('quantity', 'error', 'quantity is required');
       errors.push('quantity');
+    } else {
+      onChange('quantity', 'error', '');
     }
+
     if (!slider.sliderValue.value) {
       onChange('slider', 'error', 'slider is required');
       errors.push('slider');
+    } else {
+      onChange('slider', 'error', '');
     }
+
     if (!state.values.length) {
       onChange('state', 'error', 'state is required');
       errors.push('state');
+    } else {
+      onChange('state', 'error', '');
     }
 
+    console.log('All is working');
+    console.log(errors);
     if (!errors.length) {
-      openSubmitSheet(0);
+      console.log('Error not found!');
+
+      setSubmittedData(allStates);
+      ToastAndroid.show('submitted successfully!', ToastAndroid.SHORT);
+      setAllStates(defaultState);
+      setSubmitError(errors);
     }
+
+    // if (!errors.length) {
+    // }
+
+    // setSubmitError(errors);
+    // ToastAndroid.show('Please clear all conflict');
   };
 
   const onReset = () => {
-    console.log('reset click');
     setAllStates(defaultState);
+    ToastAndroid.show('form reset', ToastAndroid.SHORT);
+  };
+
+  const onPreview = () => {
+    if (!submittedData) {
+      ToastAndroid.show('First you need to submit form', ToastAndroid.SHORT);
+      return;
+    }
+    previewModalRef.current?.open();
+  };
+
+  const onRefetch = () => {
+    setAllStates(submittedData);
   };
 
   useEffect(() => {
@@ -464,16 +530,18 @@ const FormScreen = ({navigation}) => {
               },
             ]}>
             <ButtonComp
-              label="Reset"
-              variant="outlined"
+              label="Refetch"
+              variant="text"
               size="small"
               containerStyle={{marginBottom: 10, width: '45%'}}
+              onPress={onRefetch}
             />
             <ButtonComp
               size="small"
-              label="Submit"
+              label="Preview"
+              btnStyle="secondary"
               containerStyle={{marginBottom: 10, width: '45%'}}
-              onPress={onSubmit}
+              onPress={onPreview}
             />
             {/* <ButtonComp label="Reset" containerStyle={{marginBottom: 10}} /> */}
           </View>
@@ -608,6 +676,41 @@ const FormScreen = ({navigation}) => {
         </ActionSheetComp>
         {/* ==========================: ActionSheets Renders :======================== */}
       </ScrollView>
+
+      {/* ======================: Preview Modal :=========================== */}
+      <Modal2
+        modalRef={previewModalRef}
+        withHandle={false}
+        modalHeight={300}
+        modalStyle={{padding: 10, marginHorizontal: 10}}>
+        <View style={{flex: 1, marginBottom: 10}}>
+          <Text style={[styles.heading, {marginTop: 10}]}>Image states</Text>
+          <Text>{JSON.stringify(submittedData.imageUpload)}</Text>
+          <Text style={[styles.heading, {marginTop: 10}]}>name states</Text>
+          <Text>{JSON.stringify(submittedData.name)}</Text>
+          <Text style={[styles.heading, {marginTop: 10}]}>
+            FirstName states
+          </Text>
+          <Text>{JSON.stringify(submittedData.firstName)}</Text>
+          <Text style={[styles.heading, {marginTop: 10}]}>Phone states</Text>
+          <Text>{JSON.stringify(submittedData.phone)}</Text>
+          <Text style={[styles.heading, {marginTop: 10}]}>age states</Text>
+          <Text>{JSON.stringify(submittedData.agePicker)}</Text>
+          <Text style={[styles.heading, {marginTop: 10}]}>DOB states</Text>
+          <Text>{JSON.stringify(submittedData.date)}</Text>
+          <Text style={[styles.heading, {marginTop: 10}]}>Country states</Text>
+          <Text>{JSON.stringify(submittedData.country)}</Text>
+          <Text style={[styles.heading, {marginTop: 10}]}>States states</Text>
+          <Text>{JSON.stringify(submittedData.state)}</Text>
+          <Text style={[styles.heading, {marginTop: 10}]}>Quantity states</Text>
+          <Text>{JSON.stringify(submittedData.quantity)}</Text>
+          <Text style={[styles.heading, {marginTop: 10}]}>checks states</Text>
+          <Text>{JSON.stringify(submittedData.checks)}</Text>
+          <View style={{marginTop: 20}}>
+            <ButtonComp label="close" onPress={closePreviewModal} />
+          </View>
+        </View>
+      </Modal2>
     </View>
   );
 };
