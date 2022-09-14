@@ -24,13 +24,15 @@ function DropDownMultiSelect(props) {
     styleComponentWrapper,
     error,
     styleErrorText,
+    errorClearOnChange,
   } = props;
   const [open, setOpen] = useState(false);
+  const [errorState, setErrorState] = useState(undefined);
   // const [innerInput, setInnerInput] = useState([]);
 
-  // useEffect(() => {
-  //   setSelectedValues(innerInput);
-  // }, [innerInput, selectedValues]);
+  useEffect(() => {
+    setErrorState(error);
+  }, [error]);
   return (
     <View style={{...inputStyle.wrapper, ...styleComponentWrapper}}>
       {label && <Text style={[inputStyle.row.label, styleLabel]}>{label}</Text>}
@@ -43,11 +45,19 @@ function DropDownMultiSelect(props) {
         setValue={setSelectedValues}
         setItems={setItems}
         mode={mode || 'BADGE'}
+        onChangeValue={value => {
+          console.log(value, value.length && errorClearOnChange);
+          if (value.length && errorClearOnChange) {
+            setErrorState(undefined);
+          } else {
+            setErrorState(error);
+          }
+        }}
         {...props}
       />
-      {error && (
+      {errorState && (
         <Text style={{...inputStyle.error.text, ...styleErrorText}}>
-          {error}
+          {errorState}
         </Text>
       )}
     </View>

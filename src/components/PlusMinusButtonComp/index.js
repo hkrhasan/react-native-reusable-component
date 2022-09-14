@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {View, Text, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import PlusMinusStyle from '../../utils/componentObjects/PlusMinusButtonComp/style';
 import colors from '../../style/colors';
 
@@ -17,7 +17,12 @@ const PlusMinusButton = props => {
     label,
     styleLabel,
     styleComponentWrapper,
+    error,
+    styleErrorText,
+    errorClearOnChange,
   } = props;
+
+  const [errorState, setErrorState] = useState(undefined);
 
   if (quantity < min) {
     setQuantity(min);
@@ -30,6 +35,9 @@ const PlusMinusButton = props => {
       return;
     }
     setQuantity(quantity - 1);
+    if (errorClearOnChange) {
+      setErrorState(error);
+    }
   };
 
   const onIncrement = () => {
@@ -39,8 +47,18 @@ const PlusMinusButton = props => {
       }
     }
     setQuantity(quantity + 1);
+    if (errorClearOnChange) {
+      setErrorState(undefined);
+    }
   };
 
+  const PlusDisable =
+    max !== undefined ? (quantity >= max ? PlusMinusStyle.disable : {}) : {};
+  const MinusDisable = quantity <= min ? PlusMinusStyle.disable : {};
+
+  useEffect(() => {
+    setErrorState(error);
+  }, [error]);
   return (
     <View style={[styleComponentWrapper]}>
       {label && <Text style={[PlusMinusStyle.label, styleLabel]}>{label}</Text>}
@@ -52,6 +70,7 @@ const PlusMinusButton = props => {
             PlusMinusStyle.buttonContainer,
             styleActionBtnContainer,
             {height: size, width: size},
+            MinusDisable,
           ]}>
           <Text
             style={[
@@ -72,7 +91,11 @@ const PlusMinusButton = props => {
         <TouchableOpacity
           onPress={onIncrement}
           disabled={quantity >= max}
-          style={[PlusMinusStyle.buttonContainer, {height: size, width: size}]}>
+          style={[
+            PlusMinusStyle.buttonContainer,
+            {height: size, width: size},
+            PlusDisable,
+          ]}>
           <Text
             style={[
               {color: colors.white, fontSize: 20, fontWeight: '600'},
@@ -82,6 +105,9 @@ const PlusMinusButton = props => {
           </Text>
         </TouchableOpacity>
       </View>
+      {errorState && (
+        <Text style={[PlusMinusStyle.error, styleErrorText]}>{errorState}</Text>
+      )}
     </View>
   );
 };

@@ -12,13 +12,12 @@ import CheckBoxesComp from './CheckBoxes';
 import AutoCompleteSingle from './AutocompleteSingle';
 import AutoCompleteMulti from './AutoCompleteMulti';
 import DatePickerComp from './DatePicker';
-import ModalComp from './Modal';
 import ActionSheetComp from './ActionSheet';
 import ImageUploader from './ImageUploader';
 import PhoneInput from './PhoneInput';
 import PlusMinusButton from './PlusMinusButtonComp';
 import SliderComp from './SliderComp';
-import Modal2 from './Modal2';
+import ModalComp from './Modal';
 
 export {
   ButtonComp,
@@ -42,5 +41,4 @@ export {
   PhoneInput,
   PlusMinusButton,
   SliderComp,
-  Modal2,
 };

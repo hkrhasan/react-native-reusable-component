@@ -9,7 +9,7 @@ import {
   Pressable,
   Platform,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import inputStyle from '../../utils/componentObjects/Input/style';
 
@@ -24,8 +24,16 @@ function DropDownSingleSelect(props) {
     styleComponentWrapper,
     error,
     styleErrorText,
+    errorClearOnChange,
   } = props;
   const [open, setOpen] = useState(false);
+  const [errorState, setErrorState] = useState(undefined);
+
+  useEffect(() => {
+    if (error) {
+      setErrorState(error);
+    }
+  }, [error]);
 
   return (
     <View style={{...inputStyle.wrapper, ...styleComponentWrapper}}>
@@ -37,11 +45,16 @@ function DropDownSingleSelect(props) {
         setOpen={setOpen}
         setValue={setValue}
         setItems={setItems}
+        onChangeValue={v => {
+          if (v && errorClearOnChange) {
+            setErrorState(undefined);
+          } else setErrorState(error);
+        }}
         {...props}
       />
-      {error && (
+      {errorState && (
         <Text style={{...inputStyle.error.text, ...styleErrorText}}>
-          {error}
+          {errorState}
         </Text>
       )}
     </View>

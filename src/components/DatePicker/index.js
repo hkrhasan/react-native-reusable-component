@@ -1,5 +1,5 @@
 import {View, Text, TextInput, Pressable} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Feather from 'react-native-vector-icons/Feather';
 import DatePickerStyle from '../../utils/componentObjects/DatePicker/style';
 import DatePicker from 'react-native-date-picker';
@@ -23,15 +23,21 @@ const DatePickerComp = props => {
     dateFormat = 'dd-MM-yyyy',
     label,
     styleLabel,
+    errorClearOnChange,
   } = props;
   const currDate = date || new Date();
   const [isFocused, setIsFocused] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [value, setValue] = useState(format(currDate, dateFormat));
   const [open, setOpen] = useState(false);
+  const [errorState, setErrorState] = useState(undefined);
   const focusedObj = isFocused ? DatePickerStyle.row.focused : {};
-  const errorContainer = error ? DatePickerStyle.row.error.container : {};
-  const errorIcon = error ? DatePickerStyle.row.error.icon : {};
+  const errorContainer = errorState ? DatePickerStyle.row.error.container : {};
+  const errorIcon = errorState ? DatePickerStyle.row.error.icon : {};
+
+  useEffect(() => {
+    setErrorState(error);
+  }, [error]);
 
   return (
     <View style={{...DatePickerStyle.wrapper, ...styleWrapper}}>
@@ -79,9 +85,9 @@ const DatePickerComp = props => {
           />
         )}
       </Pressable>
-      {error && (
+      {errorState && (
         <Text style={{...DatePickerStyle.error.text, ...styleErrorText}}>
-          {error}
+          {errorState}
         </Text>
       )}
       <DatePicker
@@ -94,6 +100,10 @@ const DatePickerComp = props => {
           setInputValue(format(date, dateFormat));
           if (setDate) {
             setDate(date);
+          }
+
+          if (errorClearOnChange) {
+            setErrorState(undefined);
           }
         }}
         onCancel={() => {

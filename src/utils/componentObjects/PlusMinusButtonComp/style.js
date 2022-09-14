@@ -19,6 +19,14 @@ const PlusMinusStyle = {
     fontSize: 14,
     marginBottom: 10,
   },
+  disable: {
+    backgroundColor: colors.disable,
+  },
+  error: {
+    color: colors.error,
+    fontSize: 12,
+    marginLeft: 5,
+  },
 };
 
 export default PlusMinusStyle;

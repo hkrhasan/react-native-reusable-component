@@ -50,8 +50,8 @@ export const menuBars = [
     route: 'Form',
   },
   {
-    label: 'Test',
-    route: 'Test',
+    label: 'Form2',
+    route: 'Form2',
   },
   {
     label: 'StartIcon',

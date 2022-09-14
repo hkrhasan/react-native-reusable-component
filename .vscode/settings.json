@@ -5,6 +5,7 @@
     "childs",
     "Entypo",
     "Ionicons",
-    "Pressable"
+    "Pressable",
+    "rneui"
   ]
 }

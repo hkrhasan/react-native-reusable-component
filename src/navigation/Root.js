@@ -20,6 +20,7 @@ import {
   ActionSheetScreen,
   FormScreen,
   TestScreen,
+  FormScreenOnChange,
 } from '../screens';
 
 const Drawer = createDrawerNavigator();
@@ -39,7 +40,7 @@ const RootNavigator = props => {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName="Form"
+        initialRouteName="Form2"
         drawerContent={props => <CustomDrawer {...props} />}>
         <Drawer.Screen name="Home" component={HomeNavigator} />
 
@@ -53,7 +54,7 @@ const RootNavigator = props => {
         <Drawer.Screen name="Modal" component={ModalScreen} />
         <Drawer.Screen name="ActionSheet" component={ActionSheetScreen} />
         <Drawer.Screen name="Form" component={FormScreen} />
-        <Drawer.Screen name="Test" component={TestScreen} />
+        <Drawer.Screen name="Form2" component={FormScreenOnChange} />
         {/* <Drawer.Screen name="StartIcon" component={StartIconScreen} />
         <Drawer.Screen name="EndIcon" component={EndIconScreen} />
         <Drawer.Screen name="SubMenuFirst" component={SubMenuFirstScreen} />

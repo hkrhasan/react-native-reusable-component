@@ -24,6 +24,7 @@ const PhoneInput = props => {
     label,
     styleLabel,
     ref,
+    errorClearOnChange,
   } = props;
   const [isFocused, setIsFocused] = useState(false);
   const [errorState, setErrorState] = useState(undefined);
@@ -34,7 +35,6 @@ const PhoneInput = props => {
   const [errorIcon, setErrorIcon] = useState(
     errorState ? inputStyle.row.error.icon : {},
   );
-  const [internalError, setInternalError] = useState(null);
 
   const [errorLabel, setErrorLabel] = useState(
     errorState ? inputStyle.row.error.label : {},
@@ -71,26 +71,30 @@ const PhoneInput = props => {
           ref={ref}
           value={value}
           placeholder={placeholder}
-          onChangeText={setValue}
+          onChangeText={text => {
+            setValue(text);
+
+            if (errorClearOnChange && !text) {
+              setErrorState(error);
+              setErrorContainer(inputStyle.row.error.container);
+              setErrorIcon(inputStyle.row.error.icon);
+              setErrorLabel(inputStyle.row.error.label);
+            } else {
+              setErrorState(undefined);
+            }
+          }}
           placeholderTextColor={
             placeholderTextColor || error
               ? inputStyle.row.error.placeHolderTextColor
               : inputStyle.row.placeHolderTextColor
           }
           onFocus={() => {
-            setInternalError(null);
             setErrorContainer({});
             setErrorIcon({});
             setIsFocused(true);
             setErrorLabel({});
           }}
           onBlur={() => {
-            if (value.length < length) {
-              setErrorContainer(inputStyle.row.error.container);
-              setErrorIcon(inputStyle.row.error.icon);
-              setErrorLabel(inputStyle.row.error.label);
-              setInternalError(`Length should be minimum ${length}`);
-            }
             setIsFocused(false);
           }}
           multiline={multiline}
@@ -104,15 +108,10 @@ const PhoneInput = props => {
         {/* endIcon */}
         {endIcon && endIcon({...inputStyle.row.icon, ...errorIcon})}
       </View>
-      {internalError && (
-        <Text style={{...inputStyle.error.text, ...styleErrorText}}>
-          {internalError}
-        </Text>
-      )}
 
-      {error && (
+      {errorState && (
         <Text style={{...inputStyle.error.text, ...styleErrorText}}>
-          {error}
+          {errorState}
         </Text>
       )}
       {/* {error ||

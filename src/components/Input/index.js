@@ -25,6 +25,7 @@ const InputComp = props => {
     label,
     styleLabel,
     ref,
+    errorClearOnChange,
   } = props;
   const [isFocused, setIsFocused] = useState(false);
   const [errorState, setErrorState] = useState(undefined);
@@ -64,7 +65,14 @@ const InputComp = props => {
           value={value}
           maxLength={maxLength}
           placeholder={placeholder}
-          onChangeText={setValue}
+          onChangeText={text => {
+            if (text && errorClearOnChange) {
+              setErrorState(undefined);
+            } else {
+              setErrorState(error);
+            }
+            setValue(text);
+          }}
           placeholderTextColor={
             placeholderTextColor || error
               ? inputStyle.row.error.placeHolderTextColor
@@ -73,11 +81,6 @@ const InputComp = props => {
           onFocus={() => setIsFocused(true)}
           onBlur={() => {
             setIsFocused(false);
-            if (value && value.length < minLength) {
-              setErrorState(`minimum ${minLength} character is required`);
-            } else {
-              setErrorState(undefined);
-            }
           }}
           multiline={multiline}
           numberOfLines={numberOfLines}

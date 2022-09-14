@@ -37,7 +37,7 @@ import {buttons} from '../../utils/componentObjects/RadioButtons/constant';
 import {defaultState} from './defaultState';
 const height = Dimensions.get('window').height;
 
-const FormScreen = ({navigation}) => {
+const FormScreenOnChange = ({navigation}) => {
   const [allStates, setAllStates] = useState({...defaultState});
   const [scrollOffset, setScrollOffset] = useState(null);
   const [actionSheetIsOpened, setActionSheetIsOpened] = useState(false);
@@ -248,7 +248,7 @@ const FormScreen = ({navigation}) => {
     // eslint-disable-next-line react-native/no-inline-styles
     <View style={{flex: 1}}>
       <HeaderComp
-        title="Form"
+        title="Form2"
         barIcon={style => (
           <OpenDrawer style={style} onPress={() => navigation.openDrawer()} />
         )}
@@ -323,8 +323,9 @@ const FormScreen = ({navigation}) => {
               value={allStates.firstName.value}
               setValue={text => onChange('firstName', 'value', text)}
               minLength={allStates.firstName.minLength}
-              maxLength={allStates.firstName.maxLength}
+              // maxLength={allStates.firstName.maxLength}
               error={allStates.firstName.error}
+              errorClearOnChange={true}
             />
           </View>
           {/* ============: firstname field end :=============== */}
@@ -382,6 +383,7 @@ const FormScreen = ({navigation}) => {
               setValue={text => onChange('phone', 'value', text)}
               length={allStates.phone.length}
               error={allStates.phone.error}
+              errorClearOnChange={true}
             />
           </View>
           {/* ============: Phone field end :=============== */}
@@ -402,6 +404,7 @@ const FormScreen = ({navigation}) => {
               zIndex={actionSheetIsOpened ? 0 : allStates.country.zIndex}
               style={{marginBottom: 10}}
               error={allStates.country.error}
+              errorClearOnChange={true}
             />
           </View>
           {/* ============: Country field end :=============== */}
@@ -423,6 +426,7 @@ const FormScreen = ({navigation}) => {
               searchable={true}
               zIndex={actionSheetIsOpened ? 0 : 9}
               error={allStates.state.error}
+              errorClearOnChange={true}
             />
           </View>
           {/* ============: States field start :=============== */}
@@ -447,6 +451,7 @@ const FormScreen = ({navigation}) => {
               quantity={allStates.quantity.value}
               setQuantity={q => onChange('quantity', 'value', q)}
               error={allStates.quantity.error}
+              errorClearOnChange={true}
             />
           </View>
           {/* ==========================: PlusMinus Buttons end :======================== */}
@@ -459,6 +464,7 @@ const FormScreen = ({navigation}) => {
               dateFormat={allStates.date.dateFormat}
               placeholder={allStates.date.placeholder}
               error={allStates.date.error}
+              errorClearOnChange={true}
             />
           </View>
           <View style={styles.horizontalPadding}>
@@ -471,6 +477,7 @@ const FormScreen = ({navigation}) => {
               textAlignVertical="top"
               error={allStates.about.error}
               editable
+              errorClearOnChange={true}
             />
           </View>
           <View style={styles.horizontalPadding}>
@@ -618,6 +625,63 @@ const FormScreen = ({navigation}) => {
           </View>
         </ActionSheetComp>
         {/* Age Sheet end */}
+
+        {/* On Submit Action Sheet */}
+        <ActionSheetComp
+          style={{flex: 1, justifyContent: 'center'}}
+          index={-1}
+          sheetRef={submitSheetRef}
+          snapPoints={['100%']}
+          handleSheetChange={onChangeSubmitSheet}>
+          <View
+            style={[
+              styles.horizontalPadding,
+              {
+                marginTop: 10,
+              },
+            ]}>
+            <View style={{height: 400, padding: 10}}>
+              <Text style={[styles.heading, {marginTop: 10}]}>
+                Image states
+              </Text>
+              <Text>{JSON.stringify(allStates.imageUpload)}</Text>
+              <Text style={[styles.heading, {marginTop: 10}]}>name states</Text>
+              <Text>{JSON.stringify(allStates.name)}</Text>
+              <Text style={[styles.heading, {marginTop: 10}]}>
+                FirstName states
+              </Text>
+              <Text>{JSON.stringify(allStates.firstName)}</Text>
+              <Text style={[styles.heading, {marginTop: 10}]}>
+                Phone states
+              </Text>
+              <Text>{JSON.stringify(allStates.phone)}</Text>
+              <Text style={[styles.heading, {marginTop: 10}]}>age states</Text>
+              <Text>{JSON.stringify(allStates.agePicker)}</Text>
+              <Text style={[styles.heading, {marginTop: 10}]}>DOB states</Text>
+              <Text>{JSON.stringify(allStates.date)}</Text>
+              <Text style={[styles.heading, {marginTop: 10}]}>
+                Country states
+              </Text>
+              <Text>{JSON.stringify(allStates.country)}</Text>
+              <Text style={[styles.heading, {marginTop: 10}]}>
+                States states
+              </Text>
+              <Text>{JSON.stringify(allStates.state)}</Text>
+              <Text style={[styles.heading, {marginTop: 10}]}>
+                Quantity states
+              </Text>
+              <Text>{JSON.stringify(allStates.quantity)}</Text>
+              <Text style={[styles.heading, {marginTop: 10}]}>
+                checks states
+              </Text>
+              <Text>{JSON.stringify(allStates.checks)}</Text>
+              <View style={{marginTop: 20}}>
+                <ButtonComp label="close" onPress={closeSubmitSheet} />
+              </View>
+            </View>
+          </View>
+        </ActionSheetComp>
+        {/* ==========================: ActionSheets Renders :======================== */}
       </ScrollView>
 
       {/* ======================: Preview Modal :=========================== */}
@@ -658,7 +722,7 @@ const FormScreen = ({navigation}) => {
   );
 };
 
-export default FormScreen;
+export default FormScreenOnChange;
 
 const styles = StyleSheet.create({
   heading: {fontSize: 14, marginBottom: 10, color: colors.black},

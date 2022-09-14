@@ -18,6 +18,7 @@ import ModalScreen from './Modal';
 import ActionSheetScreen from './ActionSheet';
 import FormScreen from './Form';
 import TestScreen from './TestScreen';
+import FormScreenOnChange from './FormOnChangeError';
 
 export {
   ButtonScreen,
@@ -38,4 +39,5 @@ export {
   ActionSheetScreen,
   FormScreen,
   TestScreen,
+  FormScreenOnChange,
 };

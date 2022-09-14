@@ -1,42 +1,23 @@
+import {View, Text} from 'react-native';
 import React from 'react';
-import {View, Dimensions, Text} from 'react-native';
-import RNModal from 'react-native-modal';
-import Fontisto from 'react-native-vector-icons/Fontisto';
-import colors from '../../style/colors';
-import ModalStyle from '../../utils/componentObjects/Modal/style';
+import {Modalize} from 'react-native-modalize';
+import {ScrollView} from 'react-native-gesture-handler';
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+const ModalComp = props => {
+  const {modalRef, children, modalStyle} = props;
 
-export const ModalComp = ({
-  isVisible = false,
-  styleModalContainer,
-  height,
-  width,
-  animationIn = 'slideInUp',
-  animationOut = 'slideOutDown',
-  animationInTiming = 500,
-  animationOutTiming = 500,
-  backdropTransitionInTiming = 500,
-  backdropTransitionOutTiming = 500,
-  children,
-  ...props
-}) => {
   return (
-    <RNModal
-      isVisible={isVisible}
-      animationIn={animationIn}
-      animationOut={animationOut}
-      animationInTiming={animationInTiming}
-      animationOutTiming={animationOutTiming}
-      backdropTransitionInTiming={backdropTransitionInTiming}
-      backdropTransitionOutTiming={backdropTransitionOutTiming}
-      {...props}>
-      <View
-        style={[ModalStyle.container, styleModalContainer, {height, width}]}>
-        {children}
-      </View>
-    </RNModal>
+    <Modalize
+      ref={modalRef}
+      {...props}
+      modalStyle={{
+        marginBottom: 'auto',
+        borderBottomLeftRadius: 12,
+        borderBottomRightRadius: 12,
+        ...modalStyle,
+      }}>
+      <ScrollView>{children}</ScrollView>
+    </Modalize>
   );
 };
 
