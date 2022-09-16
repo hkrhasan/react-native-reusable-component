@@ -9,7 +9,47 @@ export const menuBars = [
     label: 'Home',
     route: 'Home',
   },
+  
+  
   {
+    label: 'Form',
+    route: 'Form',
+  },
+  {
+    label: 'Form2',
+    route: 'Form2',
+  },
+  {
+    label: 'Menu ITem with start icon',
+    route: 'StartIcon',
+    startIcon: style => <AntDesign name={'user'} style={style} />,
+  },
+  {
+    label: 'Menu ITem with end icon',
+    route: 'EndIcon',
+    endIcon: style => <Feather name={'send'} style={style} />,
+    // endIconFullRight: style => <Feather name={'send'} style={style} />,
+  },
+  {
+    label: 'Components',
+    childs: [
+      {
+        label: 'DatePickers',
+        route: 'DatePickers',
+      },
+      {
+        label: 'Inputs',
+        route: 'Inputs',
+      },
+      {
+        label: 'Modal',
+        route: 'Modal',
+      },
+      {
+        label: 'ActionSheet',
+        route: 'ActionSheet',
+      },
+      {
     label: 'Buttons',
     route: 'Buttons',
   },
@@ -29,54 +69,8 @@ export const menuBars = [
     label: 'RadioCheckBoxes',
     route: 'RadioCheckBoxes',
   },
-  {
-    label: 'DatePickers',
-    route: 'DatePickers',
+    ],
   },
-  {
-    label: 'Inputs',
-    route: 'Inputs',
-  },
-  {
-    label: 'Modal',
-    route: 'Modal',
-  },
-  {
-    label: 'ActionSheet',
-    route: 'ActionSheet',
-  },
-  {
-    label: 'Form',
-    route: 'Form',
-  },
-  {
-    label: 'Form2',
-    route: 'Form2',
-  },
-  {
-    label: 'StartIcon',
-    route: 'StartIcon',
-    startIcon: style => <AntDesign name={'user'} style={style} />,
-  },
-  {
-    label: 'EndIcon',
-    route: 'EndIcon',
-    endIcon: style => <Feather name={'send'} style={style} />,
-    // endIconFullRight: style => <Feather name={'send'} style={style} />,
-  },
-  // {
-  //   label: 'DropDown',
-  //   childs: [
-  //     {
-  //       label: 'SubMenuFirst',
-  //       route: 'SubMenuFirst',
-  //     },
-  //     {
-  //       label: 'SubMenuSecond',
-  //       route: 'SubMenuSecond',
-  //     },
-  //   ],
-  // },
   // {
   //   label: 'Nested Drop',
   //   childs: [
