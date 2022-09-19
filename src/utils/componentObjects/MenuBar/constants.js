@@ -37,7 +37,7 @@ export const menuBars = [
         label: 'Form2',
         route: 'Form2',
       },
-    ]
+    ],
   },
   {
     label: 'Components',
@@ -80,27 +80,21 @@ export const menuBars = [
         route: 'Modal',
       },
       {
+        label: 'ListAccordian',
+        route: 'ListAccordian',
+      },
+      {
+        label: 'SocialIconScreen',
+        route: 'SocialIconScreen',
+      },
+      {
+        label: 'MapScreen',
+        route: 'MapScreen',
+      },
+      {
         label: 'ActionSheet',
         route: 'ActionSheet',
       },
-    ]
+    ],
   },
-  // {
-  //   label: 'Nested Drop',
-  //   childs: [
-  //     {
-  //       label: 'Dept 1',
-  //       childs: [
-  //         {
-  //           label: 'SubMenuFirst',
-  //           route: 'SubMenuFirst',
-  //         },
-  //         {
-  //           label: 'SubMenu2',
-  //           route: 'SubMenu2',
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // },
 ];

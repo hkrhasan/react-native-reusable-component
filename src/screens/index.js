@@ -19,6 +19,9 @@ import ActionSheetScreen from './ActionSheet';
 import FormScreen from './Form';
 import TestScreen from './TestScreen';
 import FormScreenOnChange from './FormOnChangeError';
+import ListAccordianScreen from './ListAccordian';
+import SocialIconScreen from './SocialIcons';
+import MapScreen from './Map';
 
 export {
   ButtonScreen,
@@ -40,4 +43,7 @@ export {
   FormScreen,
   TestScreen,
   FormScreenOnChange,
+  ListAccordianScreen,
+  SocialIconScreen,
+  MapScreen,
 };

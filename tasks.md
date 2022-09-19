@@ -10,6 +10,6 @@
 - [X] remove unwanted libraries
 - [X] change bottom sheet
 - [X] change tab view
-- [ ] List component and accordian
-- [ ] Social icon
+- [X] List component and accordian
+- [X] Social icon
 - [ ] Google Map

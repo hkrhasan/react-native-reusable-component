@@ -21,6 +21,9 @@ import {
   FormScreen,
   TestScreen,
   FormScreenOnChange,
+  ListAccordianScreen,
+  SocialIconScreen,
+  MapScreen,
 } from '../screens';
 
 const Drawer = createDrawerNavigator();
@@ -40,7 +43,7 @@ const RootNavigator = props => {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName="TabBar"
+        initialRouteName="MapScreen"
         drawerContent={props => <CustomDrawer {...props} />}>
         <Drawer.Screen name="Home" component={HomeNavigator} />
 
@@ -55,6 +58,9 @@ const RootNavigator = props => {
         <Drawer.Screen name="ActionSheet" component={ActionSheetScreen} />
         <Drawer.Screen name="Form" component={FormScreen} />
         <Drawer.Screen name="Form2" component={FormScreenOnChange} />
+        <Drawer.Screen name="ListAccordian" component={ListAccordianScreen} />
+        <Drawer.Screen name="SocialIconScreen" component={SocialIconScreen} />
+        <Drawer.Screen name="MapScreen" component={MapScreen} />
         {/* <Drawer.Screen name="StartIcon" component={StartIconScreen} />
         <Drawer.Screen name="EndIcon" component={EndIconScreen} />
         <Drawer.Screen name="SubMenuFirst" component={SubMenuFirstScreen} />

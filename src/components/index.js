@@ -18,6 +18,9 @@ import PhoneInput from './PhoneInput';
 import PlusMinusButton from './PlusMinusButtonComp';
 import SliderComp from './SliderComp';
 import ModalComp from './Modal';
+import ListAccordian from './ListAccordian';
+import SocialIconsComp from './SocialIcons';
+import MapComp from './Map';
 
 export {
   ButtonComp,
@@ -41,4 +44,7 @@ export {
   PhoneInput,
   PlusMinusButton,
   SliderComp,
+  ListAccordian,
+  SocialIconsComp,
+  MapComp,
 };

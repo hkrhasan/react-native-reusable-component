@@ -9,6 +9,7 @@ const colors = {
   white: '#ffffff',
   black: '#000',
   disable: '#ececec',
+  fifth: 'rgba(255,100,0,0.5)',
 };
 
 export default colors;
