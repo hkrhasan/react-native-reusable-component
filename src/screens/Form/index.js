@@ -66,56 +66,9 @@ const FormScreen = ({navigation}) => {
   };
 
   // =========================: Image Upload Conf :============================
-  const imageSheetRef = useRef(null);
   const [launchType, setLaunchType] = useState(null);
-  const onChangeImageSheet = index => {
-    if (index === -1) {
-      setActionSheetIsOpened(false);
-    }
-  };
-  const openImageSheet = index => {
-    setActionSheetIsOpened(false);
-    imageSheetRef.current?.snapToIndex(index);
-  };
-  const closeImageSheet = () => {
-    imageSheetRef.current?.close();
-  };
+
   // =========================: End Image Upload Conf :============================
-
-  // =========================: Start Age Conf :============================
-  const ageSheetRef = useRef(null);
-  const onChangeAgeSheet = index => {
-    if (index === -1) {
-      setActionSheetIsOpened(false);
-    }
-  };
-
-  const openAgeSheet = index => {
-    setActionSheetIsOpened(false);
-    ageSheetRef.current?.snapToIndex(index);
-  };
-
-  const closeAgeSheet = () => {
-    ageSheetRef.current?.close();
-  };
-
-  // =========================: Start Submit Sheet Conf :============================
-
-  const submitSheetRef = useRef(null);
-  const onChangeSubmitSheet = index => {
-    if (index === -1) {
-      setActionSheetIsOpened(false);
-    }
-  };
-
-  const openSubmitSheet = index => {
-    setActionSheetIsOpened(false);
-    submitSheetRef.current?.snapToIndex(index);
-  };
-
-  const closeSubmitSheet = () => {
-    submitSheetRef.current?.close();
-  };
 
   const onSubmit = () => {
     const {

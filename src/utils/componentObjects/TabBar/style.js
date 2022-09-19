@@ -1,44 +1,33 @@
 import colors from '../../../style/colors';
 
 const TabBarStyle = {
-  wrapper: {
-    flex: 1,
-  },
-  row: {
-    flexDirection: 'row',
+  indicatorStyle: {
     backgroundColor: colors.white,
-    height: 60,
+    height: 3,
   },
-  tabButton: {
-    wrapper: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    rowOrColumn: {
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    icon: {
-      common: {
-        fontSize: 24,
-      },
-      active: {
-        color: colors.primary,
-      },
-      inActive: {
-        color: colors.secondary,
-      },
-    },
-    text: {
-      common: {
-        fontSize: 14,
-      },
-      active: {
-        color: colors.primary,
-      },
-      inActive: colors.secondary,
-    },
+  containerStyle: {
+    backgroundColor: colors.primary,
+  },
+  tabItemContainerStyle: active => {
+    if (active) {
+      return {
+        backgroundColor: colors.error,
+      };
+    } else {
+      return {};
+    }
+  },
+  titleStyle: {
+    fontSize: 12,
+    color: colors.white,
+  },
+  tabViewStyle: {
+    backgroundColor: colors.warning,
+    width: '100%',
+  },
+  tabBodyStyle: {
+    fontSize: 30,
+    color: colors.primary,
   },
 };
 

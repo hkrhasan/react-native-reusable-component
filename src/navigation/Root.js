@@ -40,7 +40,7 @@ const RootNavigator = props => {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName="Form"
+        initialRouteName="TabBar"
         drawerContent={props => <CustomDrawer {...props} />}>
         <Drawer.Screen name="Home" component={HomeNavigator} />
 

@@ -44,6 +44,8 @@ const FormScreenOnChange = ({navigation}) => {
   const [multiSelected, setMultiSelected] = useState([]);
   const [submittedData, setSubmittedData] = useState({});
   const [submitError, setSubmitError] = useState([]);
+  const [imageSheetIsVisible, setImageSheetIsVisible] = useState(false);
+  const [ageSheetIsVisible, setAgeSheetIsVisible] = useState(false);
   const previewModalRef = useRef(null);
 
   const openPreviewModal = () => {
@@ -64,56 +66,9 @@ const FormScreenOnChange = ({navigation}) => {
   };
 
   // =========================: Image Upload Conf :============================
-  const imageSheetRef = useRef(null);
   const [launchType, setLaunchType] = useState(null);
-  const onChangeImageSheet = index => {
-    if (index === -1) {
-      setActionSheetIsOpened(false);
-    }
-  };
-  const openImageSheet = index => {
-    setActionSheetIsOpened(false);
-    imageSheetRef.current?.snapToIndex(index);
-  };
-  const closeImageSheet = () => {
-    imageSheetRef.current?.close();
-  };
+
   // =========================: End Image Upload Conf :============================
-
-  // =========================: Start Age Conf :============================
-  const ageSheetRef = useRef(null);
-  const onChangeAgeSheet = index => {
-    if (index === -1) {
-      setActionSheetIsOpened(false);
-    }
-  };
-
-  const openAgeSheet = index => {
-    setActionSheetIsOpened(false);
-    ageSheetRef.current?.snapToIndex(index);
-  };
-
-  const closeAgeSheet = () => {
-    ageSheetRef.current?.close();
-  };
-
-  // =========================: Start Submit Sheet Conf :============================
-
-  const submitSheetRef = useRef(null);
-  const onChangeSubmitSheet = index => {
-    if (index === -1) {
-      setActionSheetIsOpened(false);
-    }
-  };
-
-  const openSubmitSheet = index => {
-    setActionSheetIsOpened(false);
-    submitSheetRef.current?.snapToIndex(index);
-  };
-
-  const closeSubmitSheet = () => {
-    submitSheetRef.current?.close();
-  };
 
   const onSubmit = () => {
     const {
@@ -346,7 +301,7 @@ const FormScreenOnChange = ({navigation}) => {
               </Text>
             )}
             <Pressable
-              onPress={() => openAgeSheet(0)}
+              onPress={() => setAgeSheetIsVisible(true)}
               style={{
                 borderWidth: 1,
                 // borderColor: allStates.agePicker.error
@@ -557,18 +512,18 @@ const FormScreenOnChange = ({navigation}) => {
         {/* ==========================: ActionSheets Renders :======================== */}
         {/* Image Sheet start */}
         <ActionSheetComp
-          style={{flex: 1, justifyContent: 'center'}}
-          index={-1}
-          sheetRef={imageSheetRef}
-          snapPoints={allStates.imageUpload.sheetSnap}
-          handleSheetChange={onChangeImageSheet}>
+          isVisible={imageSheetIsVisible}
+          animate={true}
+          onBackdropPress={() => setImageSheetIsVisible(false)}>
           <View
             style={[
               styles.horizontalPadding,
               {
-                marginTop: 10,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
+                backgroundColor: colors.white,
+                height: 150,
+                paddingVertical: 20,
+                borderTopLeftRadius: 12,
+                borderTopRightRadius: 12,
               },
             ]}>
             <ButtonComp
@@ -577,18 +532,18 @@ const FormScreenOnChange = ({navigation}) => {
               size="small"
               onPress={() => {
                 setLaunchType('camera');
-                closeImageSheet();
+                setImageSheetIsVisible(false);
               }}
-              containerStyle={{marginBottom: 10, width: '45%'}}
+              containerStyle={{marginBottom: 10}}
             />
             <ButtonComp
-              size="gallery"
+              size="small"
               label="Gallery"
               onPress={() => {
                 setLaunchType('gallery');
-                closeImageSheet();
+                setImageSheetIsVisible(false);
               }}
-              containerStyle={{marginBottom: 10, width: '45%'}}
+              containerStyle={{marginBottom: 10}}
             />
             {/* <ButtonComp label="Reset" containerStyle={{marginBottom: 10}} /> */}
           </View>
@@ -597,88 +552,34 @@ const FormScreenOnChange = ({navigation}) => {
 
         {/* Age Sheet start */}
         <ActionSheetComp
-          style={{flex: 1, justifyContent: 'center'}}
-          index={-1}
-          sheetRef={ageSheetRef}
-          snapPoints={allStates.agePicker.sheetSnap}
-          handleSheetChange={onChangeAgeSheet}>
+          isVisible={ageSheetIsVisible}
+          animate={true}
+          onBackdropPress={() => setAgeSheetIsVisible(false)}>
           <View
             style={[
               styles.horizontalPadding,
               {
-                marginTop: 10,
+                backgroundColor: colors.white,
+                height: 400,
+                paddingVertical: 20,
+                borderTopLeftRadius: 12,
+                borderTopRightRadius: 12,
               },
             ]}>
-            {allStates.agePicker.ageArray.map(age => (
+            {allStates.agePicker.ageArray.map((age, index) => (
               <ButtonComp
+                key={index}
                 label={age}
                 variant="outlined"
                 size="small"
                 onPress={() => {
                   onChange('agePicker', 'age', age);
-                  closeAgeSheet();
+                  setAgeSheetIsVisible(false);
                 }}
                 containerStyle={{marginBottom: 10}}
               />
             ))}
             {/* <ButtonComp label="Reset" containerStyle={{marginBottom: 10}} /> */}
-          </View>
-        </ActionSheetComp>
-        {/* Age Sheet end */}
-
-        {/* On Submit Action Sheet */}
-        <ActionSheetComp
-          style={{flex: 1, justifyContent: 'center'}}
-          index={-1}
-          sheetRef={submitSheetRef}
-          snapPoints={['100%']}
-          handleSheetChange={onChangeSubmitSheet}>
-          <View
-            style={[
-              styles.horizontalPadding,
-              {
-                marginTop: 10,
-              },
-            ]}>
-            <View style={{height: 400, padding: 10}}>
-              <Text style={[styles.heading, {marginTop: 10}]}>
-                Image states
-              </Text>
-              <Text>{JSON.stringify(allStates.imageUpload)}</Text>
-              <Text style={[styles.heading, {marginTop: 10}]}>name states</Text>
-              <Text>{JSON.stringify(allStates.name)}</Text>
-              <Text style={[styles.heading, {marginTop: 10}]}>
-                FirstName states
-              </Text>
-              <Text>{JSON.stringify(allStates.firstName)}</Text>
-              <Text style={[styles.heading, {marginTop: 10}]}>
-                Phone states
-              </Text>
-              <Text>{JSON.stringify(allStates.phone)}</Text>
-              <Text style={[styles.heading, {marginTop: 10}]}>age states</Text>
-              <Text>{JSON.stringify(allStates.agePicker)}</Text>
-              <Text style={[styles.heading, {marginTop: 10}]}>DOB states</Text>
-              <Text>{JSON.stringify(allStates.date)}</Text>
-              <Text style={[styles.heading, {marginTop: 10}]}>
-                Country states
-              </Text>
-              <Text>{JSON.stringify(allStates.country)}</Text>
-              <Text style={[styles.heading, {marginTop: 10}]}>
-                States states
-              </Text>
-              <Text>{JSON.stringify(allStates.state)}</Text>
-              <Text style={[styles.heading, {marginTop: 10}]}>
-                Quantity states
-              </Text>
-              <Text>{JSON.stringify(allStates.quantity)}</Text>
-              <Text style={[styles.heading, {marginTop: 10}]}>
-                checks states
-              </Text>
-              <Text>{JSON.stringify(allStates.checks)}</Text>
-              <View style={{marginTop: 20}}>
-                <ButtonComp label="close" onPress={closeSubmitSheet} />
-              </View>
-            </View>
           </View>
         </ActionSheetComp>
         {/* ==========================: ActionSheets Renders :======================== */}

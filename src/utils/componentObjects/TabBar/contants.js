@@ -1,45 +1,57 @@
+import {Text} from 'react-native';
 import React from 'react';
-import {View, Text} from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {BottomTabExample1, BottomTabExample2} from '../../../screens';
-import {TabBody} from '../../../components';
 
-import colors from '../../../style/colors';
-
-const TabArr = [
+export const Tabs = [
   {
-    route: 'About',
-    label: 'About',
-    activeIcon: style => <Ionicons name={'information-circle'} style={style} />,
-    inActiveIcon: style => (
-      <Ionicons name={'information-circle-outline'} style={style} />
-    ),
-    component: () => (
-      <TabBody style={{backgroundColor: colors.success}}>
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-          <Text style={{fontSize: 30, fontWeight: '600'}}>About</Text>
-        </View>
-      </TabBody>
+    title: 'Recent',
+    icon: {
+      name: 'timer',
+      type: 'ionicon',
+      color: 'white',
+    },
+    body: style => (
+      <Text style={style} h1>
+        Recent
+      </Text>
     ),
   },
   {
-    route: 'Contact',
-    label: 'Contact',
-    activeIcon: style => (
-      <MaterialCommunityIcons name={'email'} style={style} />
+    title: 'favorite',
+    icon: {
+      name: 'heart',
+      type: 'ionicon',
+      color: 'white',
+    },
+    body: style => (
+      <Text style={style} h1>
+        Favorite
+      </Text>
     ),
-    inActiveIcon: style => (
-      <MaterialCommunityIcons name={'email-outline'} style={style} />
+  },
+  {
+    title: 'cart',
+    icon: {
+      name: 'cart',
+      type: 'ionicon',
+      color: 'white',
+    },
+    body: style => (
+      <Text style={style} h1>
+        Cart
+      </Text>
     ),
-    component: () => (
-      <TabBody style={{backgroundColor: colors.warning}}>
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-          <Text style={{fontSize: 30, fontWeight: '600'}}>Contact</Text>
-        </View>
-      </TabBody>
+  },
+  {
+    title: 'Profile',
+    icon: {
+      name: 'person-circle-outline',
+      type: 'ionicon',
+      color: 'white',
+    },
+    body: style => (
+      <Text style={style} h1>
+        Profile
+      </Text>
     ),
   },
 ];
-
-export {TabArr};
