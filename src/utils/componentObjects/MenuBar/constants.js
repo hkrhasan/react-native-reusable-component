@@ -9,20 +9,16 @@ export const menuBars = [
     label: 'Home',
     route: 'Home',
   },
-  
-  
-  {
-    label: 'Form',
-    route: 'Form',
-  },
-  {
-    label: 'Form2',
-    route: 'Form2',
-  },
   {
     label: 'Menu ITem with start icon',
     route: 'StartIcon',
     startIcon: style => <AntDesign name={'user'} style={style} />,
+  },
+  {
+    label: 'Menu full right',
+    route: 'EndIcon',
+    endIconFullRight: style => <Feather name={'send'} style={style} />,
+    // endIconFullRight: style => <Feather name={'send'} style={style} />,
   },
   {
     label: 'Menu ITem with end icon',
@@ -31,15 +27,53 @@ export const menuBars = [
     // endIconFullRight: style => <Feather name={'send'} style={style} />,
   },
   {
+    label: 'Layout Example',
+    childs: [
+      {
+        label: 'Form',
+        route: 'Form',
+      },
+      {
+        label: 'Form2',
+        route: 'Form2',
+      },
+    ]
+  },
+  {
     label: 'Components',
     childs: [
       {
-        label: 'DatePickers',
-        route: 'DatePickers',
-      },
-      {
-        label: 'Inputs',
-        route: 'Inputs',
+        label: 'Form Element',
+        childs: [
+          {
+            label: 'DatePickers',
+            route: 'DatePickers',
+          },
+          {
+            label: 'Inputs',
+            route: 'Inputs',
+          },
+          {
+            label: 'Buttons',
+            route: 'Buttons',
+          },
+          {
+            label: 'TabBar',
+            route: 'TabBar',
+          },
+          {
+            label: 'Dropdown',
+            route: 'Dropdown',
+          },
+          {
+            label: 'AutoComplete',
+            route: 'AutoComplete',
+          },
+          {
+            label: 'RadioCheckBoxes',
+            route: 'RadioCheckBoxes',
+          },
+        ],
       },
       {
         label: 'Modal',
@@ -49,27 +83,7 @@ export const menuBars = [
         label: 'ActionSheet',
         route: 'ActionSheet',
       },
-      {
-    label: 'Buttons',
-    route: 'Buttons',
-  },
-  {
-    label: 'TabBar',
-    route: 'TabBar',
-  },
-  {
-    label: 'Dropdown',
-    route: 'Dropdown',
-  },
-  {
-    label: 'AutoComplete',
-    route: 'AutoComplete',
-  },
-  {
-    label: 'RadioCheckBoxes',
-    route: 'RadioCheckBoxes',
-  },
-    ],
+    ]
   },
   // {
   //   label: 'Nested Drop',

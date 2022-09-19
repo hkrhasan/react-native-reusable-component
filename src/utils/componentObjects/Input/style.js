@@ -13,6 +13,17 @@ const InputStyle = {
       borderWidth: 1,
       backgroundColor: colors.white,
     },
+    varition1 : {
+      borderRadius: 10,
+      paddingHorizontal: 7,
+      marginBottom: 5,
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderColor: colors.fourth,
+      borderWidth: 1,
+      backgroundColor: colors.fourth,
+    },
+
     focused: {
       borderWidth: 2,
     },
@@ -41,7 +52,7 @@ const InputStyle = {
       flex: 1,
     },
     label: {
-      fontSize: 14,
+      fontSize: 18,
       color: colors.black,
       marginBottom: 10,
     },

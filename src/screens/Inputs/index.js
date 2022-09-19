@@ -20,7 +20,7 @@ const InputScreen = ({navigation}) => {
   return (
     <View style={{flex: 1}}>
       <HeaderComp
-        title="Buttons"
+        title="Textfield"
         barIcon={style => (
           <OpenDrawer style={style} onPress={() => navigation.openDrawer()} />
         )}
@@ -32,8 +32,7 @@ const InputScreen = ({navigation}) => {
           paddingVertical: 12,
           flex: 1,
         }}>
-        <Text style={styles.heading}>Input Simple</Text>
-        <InputComp value={value} setValue={setValue} />
+        <InputComp value={value} setValue={setValue} label="Input Simple" varitionType="1"/>
         <Text style={styles.heading}>Input StartIcon</Text>
         <InputComp
           value={value}
