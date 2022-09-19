@@ -26,6 +26,7 @@ const InputComp = props => {
     styleLabel,
     ref,
     errorClearOnChange,
+    varitionType
   } = props;
   const [isFocused, setIsFocused] = useState(false);
   const [errorState, setErrorState] = useState(undefined);
@@ -34,6 +35,7 @@ const InputComp = props => {
   const errorLabel = errorState ? inputStyle.row.error.label : {};
   const errorContainer = errorState ? inputStyle.row.error.container : {};
   const errorIcon = errorState ? inputStyle.row.error.icon : {};
+  const defaultStyle = varitionType==1 ? inputStyle.row.varition1 : inputStyle.row.common;
 
   useEffect(() => {
     setErrorState(error);
@@ -53,7 +55,7 @@ const InputComp = props => {
       )}
       <View
         style={{
-          ...inputStyle.row.common,
+          ...defaultStyle,
           ...focusedObj,
           // ...errorContainer,
           ...styleContainer,
