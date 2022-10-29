@@ -28,6 +28,7 @@ const MapScreen = ({navigation}) => {
           alignItems: 'center',
         }}>
         <MapComp
+          
           initialRegion={{
             latitude: 28.7254302,
             longitude: 77.2969926,
